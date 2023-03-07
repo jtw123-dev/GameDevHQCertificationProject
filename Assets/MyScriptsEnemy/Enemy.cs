@@ -12,6 +12,7 @@ public abstract class Enemy:MonoBehaviour
     [SerializeField] protected GameObject _enemy;
     [SerializeField] protected NavMeshAgent _agent;
     [SerializeField] protected Transform[] _waypoints;
+    [SerializeField] protected bool _isDead;
 
     public virtual void Die()
     {
@@ -25,6 +26,11 @@ public abstract class Enemy:MonoBehaviour
     }
 
     public virtual void Movement()
+    {
+
+    }
+
+    public virtual void Dead()
     {
 
     }
