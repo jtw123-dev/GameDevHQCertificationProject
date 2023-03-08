@@ -5724,7 +5724,7 @@ MonoBehaviour:
   _waypoints:
   - {fileID: 1371429579}
   - {fileID: 1073048793}
-  _isDead: 1
+  _isDead: 0
   _renderer: {fileID: 628051923}
 --- !u!1001 &1220650254
 PrefabInstance:
