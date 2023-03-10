@@ -1017,6 +1017,10 @@ PrefabInstance:
       value: Gatling_Gun (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1425032208015248, guid: 75f3d166786e1cb40afc4396cd0bcc22, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425032208015248, guid: 75f3d166786e1cb40afc4396cd0bcc22, type: 3}
       propertyPath: m_TagString
       value: Tower
       objectReference: {fileID: 0}
@@ -1026,7 +1030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633165491543876, guid: 75f3d166786e1cb40afc4396cd0bcc22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.807617
+      value: -16.02
       objectReference: {fileID: 0}
     - target: {fileID: 4633165491543876, guid: 75f3d166786e1cb40afc4396cd0bcc22, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1554,8 +1558,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0582047, y: 2.240318, z: 5.986663}
-  m_Center: {x: -0.62763596, y: 0.62015903, z: -0.3187132}
+  m_Size: {x: 5.8792076, y: 2.240318, z: 5.986663}
+  m_Center: {x: 0.20217705, y: 0.62015903, z: -0.3187132}
 --- !u!1001 &210789249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1829,11 +1833,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.12
+      value: -28.71
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7569,7 +7573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.95
+      value: -35.36
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a20ce2bf8b9f44bf8ad67d2d2fbe1337, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10555,11 +10559,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839726127}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.297649, y: 2.0756788, z: 5.3030624}
-  m_Center: {x: -0.29118538, y: 0.5378394, z: 0.27547455}
+  m_Size: {x: 5.455521, y: 3.152896, z: 5.374202}
+  m_Center: {x: -0.2122495, y: -0.00076913834, z: 0.31104422}
 --- !u!1 &1841416533
 GameObject:
   m_ObjectHideFlags: 0
@@ -11068,8 +11072,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.298404, y: 1, z: 6.589311}
-  m_Center: {x: -0.9356026, y: -1.9449052e-15, z: 0.44567764}
+  m_Size: {x: 7.0174475, y: 1, z: 7.2640777}
+  m_Center: {x: -0.5760809, y: 7.227127e-16, z: 0.108294256}
 --- !u!1001 &1886142276
 PrefabInstance:
   m_ObjectHideFlags: 0
