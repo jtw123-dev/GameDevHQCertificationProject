@@ -1,76 +1,212 @@
 fileFormatVersion: 2
 guid: 669da35802ede442cb96e7bda65db52b
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Body
-    100002: Chest
-    100004: Hip
-    100006: L_Arm
-    100008: L_Arm_2
-    100010: L_Arm_3
-    100012: L_Arm_4
-    100014: L_Leg_1
-    100016: L_Leg_2
-    100018: L_Leg_3
-    100020: L_Leg_4
-    100022: L_Leg_5
-    100024: L_Turret
-    100026: //RootNode
-    100028: R_Arm
-    100030: R_Arm_2
-    100032: R_Arm_3
-    100034: R_Arm_4
-    100036: R_Leg_1
-    100038: R_Leg_2
-    100040: R_Leg_3
-    100042: R_Leg_4
-    100044: R_Leg_5
-    100046: R_Turret
-    100048: Root
-    400000: Body
-    400002: Chest
-    400004: Hip
-    400006: L_Arm
-    400008: L_Arm_2
-    400010: L_Arm_3
-    400012: L_Arm_4
-    400014: L_Leg_1
-    400016: L_Leg_2
-    400018: L_Leg_3
-    400020: L_Leg_4
-    400022: L_Leg_5
-    400024: L_Turret
-    400026: //RootNode
-    400028: R_Arm
-    400030: R_Arm_2
-    400032: R_Arm_3
-    400034: R_Arm_4
-    400036: R_Leg_1
-    400038: R_Leg_2
-    400040: R_Leg_3
-    400042: R_Leg_4
-    400044: R_Leg_5
-    400046: R_Turret
-    400048: Root
-    2100000: No Name
-    2300000: L_Turret
-    2300002: R_Turret
-    3300000: L_Turret
-    3300002: R_Turret
-    4300000: Body
-    4300002: L_Leg_1
-    4300004: R_Leg_1
-    4300006: L_Arm
-    4300008: L_Turret
-    4300010: R_Arm
-    4300012: R_Turret
-    9500000: //RootNode
-    13700000: Body
-    13700002: L_Arm
-    13700004: L_Leg_1
-    13700006: R_Arm
-    13700008: R_Leg_1
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Body
+  - first:
+      1: 100002
+    second: Chest
+  - first:
+      1: 100004
+    second: Hip
+  - first:
+      1: 100006
+    second: L_Arm
+  - first:
+      1: 100008
+    second: L_Arm_2
+  - first:
+      1: 100010
+    second: L_Arm_3
+  - first:
+      1: 100012
+    second: L_Arm_4
+  - first:
+      1: 100014
+    second: L_Leg_1
+  - first:
+      1: 100016
+    second: L_Leg_2
+  - first:
+      1: 100018
+    second: L_Leg_3
+  - first:
+      1: 100020
+    second: L_Leg_4
+  - first:
+      1: 100022
+    second: L_Leg_5
+  - first:
+      1: 100024
+    second: L_Turret
+  - first:
+      1: 100026
+    second: //RootNode
+  - first:
+      1: 100028
+    second: R_Arm
+  - first:
+      1: 100030
+    second: R_Arm_2
+  - first:
+      1: 100032
+    second: R_Arm_3
+  - first:
+      1: 100034
+    second: R_Arm_4
+  - first:
+      1: 100036
+    second: R_Leg_1
+  - first:
+      1: 100038
+    second: R_Leg_2
+  - first:
+      1: 100040
+    second: R_Leg_3
+  - first:
+      1: 100042
+    second: R_Leg_4
+  - first:
+      1: 100044
+    second: R_Leg_5
+  - first:
+      1: 100046
+    second: R_Turret
+  - first:
+      1: 100048
+    second: Root
+  - first:
+      4: 400000
+    second: Body
+  - first:
+      4: 400002
+    second: Chest
+  - first:
+      4: 400004
+    second: Hip
+  - first:
+      4: 400006
+    second: L_Arm
+  - first:
+      4: 400008
+    second: L_Arm_2
+  - first:
+      4: 400010
+    second: L_Arm_3
+  - first:
+      4: 400012
+    second: L_Arm_4
+  - first:
+      4: 400014
+    second: L_Leg_1
+  - first:
+      4: 400016
+    second: L_Leg_2
+  - first:
+      4: 400018
+    second: L_Leg_3
+  - first:
+      4: 400020
+    second: L_Leg_4
+  - first:
+      4: 400022
+    second: L_Leg_5
+  - first:
+      4: 400024
+    second: L_Turret
+  - first:
+      4: 400026
+    second: //RootNode
+  - first:
+      4: 400028
+    second: R_Arm
+  - first:
+      4: 400030
+    second: R_Arm_2
+  - first:
+      4: 400032
+    second: R_Arm_3
+  - first:
+      4: 400034
+    second: R_Arm_4
+  - first:
+      4: 400036
+    second: R_Leg_1
+  - first:
+      4: 400038
+    second: R_Leg_2
+  - first:
+      4: 400040
+    second: R_Leg_3
+  - first:
+      4: 400042
+    second: R_Leg_4
+  - first:
+      4: 400044
+    second: R_Leg_5
+  - first:
+      4: 400046
+    second: R_Turret
+  - first:
+      4: 400048
+    second: Root
+  - first:
+      21: 2100000
+    second: No Name
+  - first:
+      23: 2300000
+    second: L_Turret
+  - first:
+      23: 2300002
+    second: R_Turret
+  - first:
+      33: 3300000
+    second: L_Turret
+  - first:
+      33: 3300002
+    second: R_Turret
+  - first:
+      43: 4300000
+    second: Body
+  - first:
+      43: 4300002
+    second: L_Leg_1
+  - first:
+      43: 4300004
+    second: R_Leg_1
+  - first:
+      43: 4300006
+    second: L_Arm
+  - first:
+      43: 4300008
+    second: L_Turret
+  - first:
+      43: 4300010
+    second: R_Arm
+  - first:
+      43: 4300012
+    second: R_Turret
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Body
+  - first:
+      137: 13700002
+    second: L_Arm
+  - first:
+      137: 13700004
+    second: L_Leg_1
+  - first:
+      137: 13700006
+    second: R_Arm
+  - first:
+      137: 13700008
+    second: R_Leg_1
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -78,7 +214,7 @@ ModelImporter:
       name: No Name
     second: {fileID: 2100000, guid: 905f5053c7f114ef0b2c0e20b3c16c5a, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -87,8 +223,10 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Head' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -96,7 +234,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -111,25 +249,34 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -138,12 +285,137 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Mech_20(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Root
+      parentName: Mech_20(Clone)
+      position: {x: 0, y: 1.3577867, z: 0.12059165}
+      rotation: {x: 2.9582284e-31, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hip
+      parentName: Root
+      position: {x: 3.552712e-17, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest
+      parentName: Hip
+      position: {x: -0, y: 0.35083008, z: -0.049525786}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Arm_2
+      parentName: Chest
+      position: {x: -0.44530746, y: 0.007972692, z: -0.27537784}
+      rotation: {x: -0.11256963, y: 0.6980889, z: 0.11256963, w: 0.6980889}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Arm_3
+      parentName: L_Arm_2
+      position: {x: -7.105427e-17, y: 0.009124608, z: -0.32099682}
+      rotation: {x: -0.18718533, y: -0.37926233, z: -0.52170295, w: 0.7409101}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Arm_4
+      parentName: L_Arm_3
+      position: {x: -0.58942646, y: -1.4210854e-16, z: -0.25577956}
+      rotation: {x: -1.110223e-16, y: -2.0503047e-18, z: -3.330606e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Arm_2
+      parentName: Chest
+      position: {x: 0.43283293, y: 0.0042259763, z: -0.27537784}
+      rotation: {x: 0.6980889, y: -0.11256963, z: -0.6980889, w: -0.11256963}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Arm_3
+      parentName: R_Arm_2
+      position: {x: 6.9384494e-14, y: -0.014621561, z: -0.3258203}
+      rotation: {x: 0.18718533, y: -0.3792624, z: 0.5217029, w: 0.7409101}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Arm_4
+      parentName: R_Arm_3
+      position: {x: -0.58942646, y: -1.9582557e-13, z: -0.25577956}
+      rotation: {x: 4.3368087e-19, y: -1.9721523e-31, z: -2.524355e-29, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Leg_2
+      parentName: Hip
+      position: {x: -0.4228068, y: -0.1342584, z: -0.15497431}
+      rotation: {x: -0.49886233, y: 0.5011351, z: 0.49886233, w: 0.5011351}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Leg_3
+      parentName: L_Leg_2
+      position: {x: -0.013898072, y: 0.00042297653, z: -0.34560198}
+      rotation: {x: -0.0038235208, y: 8.0164606e-20, z: 1.1102228e-16, w: 0.9999927}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Leg_4
+      parentName: L_Leg_3
+      position: {x: 0.05062153, y: 0.0016260195, z: -0.7316533}
+      rotation: {x: 0.013670745, y: -1.1734506e-18, z: -1.1101611e-16, w: 0.9999066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Leg_5
+      parentName: L_Leg_4
+      position: {x: -0.30463073, y: -4.2632563e-16, z: -0.11067287}
+      rotation: {x: -8.799342e-33, y: -1.0764054e-17, z: -4.4395874e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Leg_2
+      parentName: Hip
+      position: {x: 0.4228068, y: -0.1342584, z: -0.15497431}
+      rotation: {x: 0.5011351, y: -0.49886233, z: -0.5011351, w: -0.49886233}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Leg_3
+      parentName: R_Leg_2
+      position: {x: -0.013898072, y: -0.00042297653, z: -0.34560198}
+      rotation: {x: 0.0038235208, y: -1.6032921e-19, z: 2.2204457e-16, w: 0.9999927}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Leg_4
+      parentName: R_Leg_3
+      position: {x: 0.05062153, y: -0.0016260195, z: -0.7316533}
+      rotation: {x: -0.013670745, y: 9.6287503e-35, z: 1.3164449e-36, w: 0.9999066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Leg_5
+      parentName: R_Leg_4
+      position: {x: -0.30463073, y: -1.4210854e-16, z: -0.11067287}
+      rotation: {x: 3.3133218e-16, y: 5.382027e-18, z: -2.2197937e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Mech_20(Clone)
+      position: {x: 0.0016984345, y: 1.6059165, z: -0.064131595}
+      rotation: {x: 4.6792405e-24, y: 0.7071068, z: -4.6792405e-24, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Leg_1
+      parentName: Body
+      position: {x: -0.08943459, y: -0.87500846, z: 0.24327797}
+      rotation: {x: 1.039e-39, y: -0.7071068, z: 1.039e-39, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Leg_1
+      parentName: Body
+      position: {x: -0.089434594, y: -0.8750085, z: -0.24532089}
+      rotation: {x: 1.039e-39, y: -0.7071068, z: 1.039e-39, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Arm
+      parentName: Body
+      position: {x: -0.18472326, y: 0.11177611, z: -0.27181122}
+      rotation: {x: -0, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_Turret
+      parentName: L_Arm
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Arm
+      parentName: Body
+      position: {x: -0.18472321, y: 0.11793578, z: 0.27182153}
+      rotation: {x: 7.34684e-40, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_Turret
+      parentName: R_Arm
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 7.34684e-40, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -151,13 +423,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
