@@ -21,20 +21,9 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     // Start is called before the first frame update
     void Start()
-    {
-
-        // StartCoroutine(StartWaveSequence());
-          _mechs = MechGenerator(10);
-        //StartCoroutine(StartWave());
-        StartCoroutine(TestWave());
-
-
-    }
-
-    public void MechHasDied()
-    {
-        _hasDied++;
-
+    {        
+       _mechs = MechGenerator(10);
+       StartCoroutine(TestWave());
     }
 
     private List<GameObject> MechGenerator(int amountOfMechs)
@@ -48,7 +37,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         }
         return _mechs;
     }
-    public GameObject RequestMech() //make gameobject method to keep reference to our Mech
+    public GameObject RequestMech() 
     {
         foreach (var mech in _mechs)
         {
@@ -80,7 +69,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
             {
                 case 0:
                     yield return new WaitForSeconds(5);
-                    RequestMech();//you could increment mechs by ++ and than break the loop that way.
+                    RequestMech();
                     if (Time.time >= 20)
                     {
                         _currentWave++;                     
@@ -172,14 +161,11 @@ public class SpawnManager : MonoSingleton<SpawnManager>
             {
                 Debug.Log("Finished ");
                 break;
-            }
-            
-        }
-        
+            }          
+        }      
     }
 
-
-    private IEnumerator StartWave()
+   /* private IEnumerator StartWave()
     {
         while (true)
         {
@@ -268,7 +254,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 //{
 //  return null;
 //}
-
+//you could increment mechs by ++ and than break the loop that way.
     // if (_mechs.All(m => m.gameObject.activeInHierarchy == true))//by doing this we can only go to the next wave by destroying all mechs
                                                                         //just need to create a list to deactivate one by one and when they are all false we can go to next wave
                                                                         //just fufill requirements you don't have to use it.

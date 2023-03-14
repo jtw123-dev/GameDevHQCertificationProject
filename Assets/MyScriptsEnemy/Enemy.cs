@@ -58,7 +58,6 @@ public abstract class Enemy:MonoBehaviour
         }
         if (_isDead == true)
         {//add bool to see if he can resurect
-            SpawnManager.Instance.MechHasDied();
             _anim.applyRootMotion = false;          
             StartCoroutine(DissolveRoutine());
             _agent.enabled = false;
