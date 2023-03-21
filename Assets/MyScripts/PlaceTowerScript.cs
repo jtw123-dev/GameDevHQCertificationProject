@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PlaceTowerScript : MonoBehaviour
 {
     [SerializeField] private GameObject _gatlingGun;
+    [SerializeField]private bool _showParticles;
     [SerializeField] private GameObject[] _towersCollection;
     private int _towerSelection;
     private GameObject _currentObject;
@@ -48,7 +49,7 @@ public class PlaceTowerScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
@@ -65,13 +66,15 @@ public class PlaceTowerScript : MonoBehaviour
                 {
                     return;
                 }
-
             }
+
             PlacementZoneScript.onSelect += TowerSelected;
-            //  _currentObject = Instantiate(_gatlingGun);    
+            //  _currentObject = Instantiate(_gatlingGun); 
+            hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatus();
             _currentObject = Instantiate(_towersCollection[_towerSelection]);
         }
     }
+
     private void TowerSelected(int tower)
     {
         _towerSelection = tower;
