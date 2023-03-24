@@ -12,6 +12,9 @@ public class PlaceTowerScript : MonoBehaviour
     private int _towerSelection;
     private GameObject _currentObject;
     [SerializeField]private bool _isOnZone;
+    [SerializeField] private GameObject _preview;
+    private bool _canPlace;
+    [SerializeField] private GameObject _upgradeGatlingTower, _upgradeMissileTurret;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +28,12 @@ public class PlaceTowerScript : MonoBehaviour
             //CheckIfTowerExists();
         }
     }
+
+    private void CanPlaceTower(bool canPlace )
+    {
+        _canPlace = canPlace;
+    }
+
 
     private void CheckIfTowerExists()
     {
@@ -44,24 +53,46 @@ public class PlaceTowerScript : MonoBehaviour
         }
     }
 
+
+    private void TowerSelected(int tower)
+    {
+        _towerSelection = tower;
+    }
+
     private void HandleTower()
     {
+        PlacementZoneScript.onSelect += TowerSelected;
+        PreviewTurretScript._onClick += CanPlaceTower;
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
+            PreviewTurretScript._onClick += CanPlaceTower;
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
                 if (hitInfo.collider.tag == "Tower")
-                {
+                {     
+                    if (_towerSelection==0)
+                    {
+                        _upgradeGatlingTower.SetActive(true);
+
+                    }
+
+                    else if (_towerSelection==1)
+                    {
+                        _upgradeMissileTurret.SetActive(true);
+                    }
                     return;
                 }
                 else if (hitInfo.collider.tag!="Zone")
                 {
                     return;
                 }
-
+               
+                else if (_canPlace==false)
+                {
+                    return;
+                }
                 else if (UIManager.Instance.totalWarFunds<200)
                 {
                     return;
@@ -69,17 +100,22 @@ public class PlaceTowerScript : MonoBehaviour
             }
 
             PlacementZoneScript.onSelect += TowerSelected;
+            Debug.Log(_towerSelection);
             //  _currentObject = Instantiate(_gatlingGun); 
             hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatus();
             _currentObject = Instantiate(_towersCollection[_towerSelection]);
         }
     }
-
-    private void TowerSelected(int tower)
+   
+    public void UpgradeTower()
     {
-        _towerSelection = tower;
+        if (_towerSelection==0)
+
+        {
+           // _currentObject = Instantiate()
+        }
+
     }
-    
 
     public void MoveCurrentObjectToMouse()
     {

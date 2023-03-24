@@ -82,5 +82,29 @@ public class CommentScript : MonoBehaviour
         }
         */
 
+    //placement zone script tower script
+    //  //if(_isActive==true)
+    // {
+    //     return;
+    // }
+    // else
+    //  // _isActive = true;   
+
+
+    //this is from enemy
+
+    /*if (_isDead == true)
+       {//add bool to see if he can resurect
+           _anim.applyRootMotion = false;
+           _leftMuzzleFlash.SetActive(false);
+           _rightMuzzleFlash.SetActive(false);
+           StartCoroutine(DissolveRoutine());
+           _agent.enabled = false;
+           _anim.SetTrigger("Death");
+
+           //Destroy(this.gameObject, 2.5f);
+           Invoke("Hide",2.5f);//Destroy instead of hide for enemies that die
+           //is dead and health is 0 or less is different
+       }*/
 
 }

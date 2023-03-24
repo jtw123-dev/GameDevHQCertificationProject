@@ -123,10 +123,36 @@ namespace GameDevHQ.FileBase.Missile_Launcher.Missile
 
         private void OnCollisionEnter(Collision other)
         {
-            Destroy(other.gameObject); //destroy collided object
+           // Destroy(other.gameObject); //destroy collided object this destroys the land
+
+           
+
 
             if (_explosionPrefab != null)
-                Instantiate(_explosionPrefab, transform.position, Quaternion.identity); //instantiate explosion
+            {
+                var explosionClone = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);//changed to clone
+                Destroy(explosionClone, 1);
+            }
+               //instantiate explosion
+
+            Destroy(this.gameObject); //destroy the rocket (this)
+        }
+
+        private void OnTriggerEnter(Collider other)//be very carful of on triggerenter vs oncollison enter
+        {
+
+            if (other.tag=="Enemy")
+            {
+                // other.gameObject.SetActive(false);
+                other.gameObject.GetComponent<IDamagable>().Damage(50);
+            }
+
+            if (_explosionPrefab != null)
+            {
+                var explosionClone = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);//changed to clone
+                Destroy(explosionClone, 1);
+            }
+            //instantiate explosion
 
             Destroy(this.gameObject); //destroy the rocket (this)
         }

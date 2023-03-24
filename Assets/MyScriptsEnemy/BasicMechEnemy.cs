@@ -4,22 +4,23 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 
-public class BasicMechEnemy : Enemy
+public class BasicMechEnemy : Enemy,IDamagable
 
 {
     [SerializeField] private Renderer[] _renderer;
-    
+
+    public float health { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
         _agent.destination = _waypoints[1].transform.position;
-
+        
+        health = _health;
         foreach(var obj in _renderer)
         {
             obj.material.SetFloat("_Clipping_value", 0);
         }
-        
-
         _leftMuzzleFlash.SetActive(false); //setting the initial state of the muzzle flash effect to off
         _rightMuzzleFlash.SetActive(false);
         _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
@@ -30,17 +31,16 @@ public class BasicMechEnemy : Enemy
     }
     private void OnEnable()
     {
-
+        health = _health;
         _leftMuzzleFlash.SetActive(false); //setting the initial state of the muzzle flash effect to off
         _rightMuzzleFlash.SetActive(false);
         transform.position = _waypoints[0].transform.position;
         _agent.enabled = true;
-        //_agent = GetComponent<NavMeshAgent>();
         _agent.speed = _speed;
         _agent.destination = _waypoints[1].transform.position;
         _isDead = false;
         _anim.applyRootMotion = true;
-       
+        _health = 100;      
         StartCoroutine(ResetDissolve());
     }
 
@@ -59,10 +59,7 @@ public class BasicMechEnemy : Enemy
             {
                 obj.material.SetFloat("_Clipping_value", _dissolving);
                 yield return new WaitForSeconds(0.1f);
-
-            }
-            
-            
+            }         
         }
     }
 
@@ -74,8 +71,14 @@ public class BasicMechEnemy : Enemy
             {
              obj.material.SetFloat("_Clipping_value", 0);//careful with shared material
                 yield return new WaitForSeconds(0.2f);
-            }
-           
+            }         
         }
+    }
+
+    public void Damage(float healthDamage)
+    {
+        _health -= healthDamage;
+        
+         //  _health--;
     }
 }
