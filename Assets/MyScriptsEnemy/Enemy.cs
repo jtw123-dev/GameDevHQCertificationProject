@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using System;
+using GameDevHQ.FileBase.Gatling_Gun;
 public abstract class Enemy:MonoBehaviour 
 {
-    [SerializeField]protected int _health;
+    [SerializeField]protected float _health;//changed from int to float
     [SerializeField] protected float _speed;
     [SerializeField] protected int _creditsAwardedOnDeath;
     [SerializeField] protected Animator _anim;
@@ -19,15 +20,8 @@ public abstract class Enemy:MonoBehaviour
     protected bool _startWeaponNoise;
     protected float _dissolving;
     protected Tower _towerReference;
-    
-    
-    
-    // protected Renderer _renderer;
-
-    //Use timescale to speed up and slow down game
-
-    //took out onenable
-
+    protected bool _canDamage;
+    protected Gatling_Gun _gatlingGun;
 
     public virtual void EnemyAttack()
 
@@ -43,29 +37,22 @@ public abstract class Enemy:MonoBehaviour
     public void Hide()
     {
         _agent.enabled = false;
-        this.gameObject.SetActive(false);
-        
-        
+        this.gameObject.SetActive(false);       
     }
-
-    public virtual void Dead()
+   
+    public  void Dead()
     {
         if (_health <= 0)
         {
-            _isDead = true;
+            _audioSource.Stop();
             _anim.applyRootMotion = false;
-            Hide();
-        }
-        if (_isDead == true)
-        {//add bool to see if he can resurect
-            _anim.applyRootMotion = false;          
+            _leftMuzzleFlash.SetActive(false);
+            _rightMuzzleFlash.SetActive(false);
             StartCoroutine(DissolveRoutine());
             _agent.enabled = false;
             _anim.SetTrigger("Death");
-            //Destroy(this.gameObject, 2.5f);
-            Invoke("Hide",2.5f);//Destroy instead of hide for enemies that die
-
-        }
+            Invoke("Hide", 2.5f);//Destroy instead of hide for enemies that die
+        }      
     }
     public virtual  IEnumerator DissolveRoutine()
     {
@@ -123,13 +110,9 @@ public abstract class Enemy:MonoBehaviour
     {
         if (other.tag=="Tower")
         {
-           // if (_isDead==true)
-           // {
-            //    return;
-           // }
-           // else if (_isDead==false)
-            //{
-                other.GetComponent<Tower>().Damage(); //changing it to nearestEnemy made it work better rather than obj.
+            
+            Debug.Log("Attacking enemy");         
+                other.GetComponent<Tower>().Damage(1); //changing it to nearestEnemy made it work better rather than obj.
                 _leftMuzzleFlash.SetActive(true);
                 _rightMuzzleFlash.SetActive(true);
                 if (_startWeaponNoise == true) //checking if we need to start the gun sound
@@ -138,10 +121,8 @@ public abstract class Enemy:MonoBehaviour
                     _startWeaponNoise = false; //set the start weapon noise value to false to prevent calling it again
                 }
                 Vector3 directionToFace = other.transform.position - transform.position;
-                transform.rotation = Quaternion.LookRotation(directionToFace);
-          // }          
-        }
-        
+                transform.rotation = Quaternion.LookRotation(directionToFace);       
+        }      
     }
 
     private void OnTriggerEnter(Collider other)
@@ -160,4 +141,3 @@ public abstract class Enemy:MonoBehaviour
         _audioSource.Stop();
     }
 }
-//Debug.DrawRay(transform.position, directionToFace, Color.red);

@@ -24,7 +24,7 @@ public class PlacementZoneScript : MonoBehaviour
         }
     }
 
-    public bool  ChangeParticleStatus()//make a return type?
+    public bool  ChangeParticleStatus()
     {
         _playParticles = false;
         Debug.Log("particles are false");
@@ -46,22 +46,13 @@ public class PlacementZoneScript : MonoBehaviour
     }
  
     private void OnMouseEnter()
-    {
-        if(_isActive==true)
-        {
-            return;
-        }
-        else
-        {          
-            _turretPreviews[_towerSelection].SetActive(true);         
-            _isActive = true;         
+    {  
+            _turretPreviews[_towerSelection].SetActive(true);                       
             var result = _availablePlacements.Where(n => n.GetComponentInParent<PlacementZoneScript>()._playParticles == true);
-
             foreach(var obj in result)
             {
                 obj.gameObject.SetActive(true);
-            }          
-        }       
+            }                     
     }
     private void OnMouseOver()
     {
@@ -79,9 +70,7 @@ public class PlacementZoneScript : MonoBehaviour
         foreach (var obj in _availablePlacements)
         {   
             obj.SetActive(false);
-        }
-        _isActive = false;
-       // _particleField.SetActive(false);
+        }   
         _turretPreviews[_towerSelection].SetActive(false);
     }       
     }

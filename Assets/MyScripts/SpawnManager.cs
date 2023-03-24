@@ -6,7 +6,7 @@ using System.Linq;
 
 public class SpawnManager : MonoSingleton<SpawnManager>
 {
-    [SerializeField] private List<Waves> _waves;
+    //[SerializeField] private List<Waves> _waves;
     [SerializeField ]private int _currentWave;
     [SerializeField] private GameObject _mechContainer;
     [SerializeField] private List<GameObject> _mechs;
@@ -52,13 +52,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         newMech.transform.parent = _mechContainer.transform;
         _mechs.Add(newMech);
         return newMech;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
     }
 
     private IEnumerator TestWave()

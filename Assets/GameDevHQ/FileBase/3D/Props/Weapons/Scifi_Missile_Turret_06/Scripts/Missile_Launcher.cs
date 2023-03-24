@@ -41,16 +41,34 @@ namespace GameDevHQ.FileBase.Missile_Launcher
         [SerializeField]
         private Transform _target; //Who should the rocket fire at?
 
+        [SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
+        private bool _doneAttacking;
+        [SerializeField] private GameObject _currentAttackedObject;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
             {
-                _launched = true; //set the launch bool to true
+                //_launched = true; //set the launch bool to true
                 StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_launched == true)
+            {
+                return;
+            }
+            _launched = true;
+            StartCoroutine(FireRocketsRoutine());
+            _target = other.transform;
+            //other.gameObject.transform.GetComponent<IDamagable>().health -= 50;
+           
+         
+        }
+
+      
         IEnumerator FireRocketsRoutine()
         {
             for (int i = 0; i < _misslePositions.Length; i++) //for loop to iterate through each missle position

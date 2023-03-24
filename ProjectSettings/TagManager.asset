@@ -8,6 +8,8 @@ TagManager:
   - End
   - Boundary
   - Zone
+  - Enemy
+  - Preview
   layers:
   - Default
   - TransparentFX

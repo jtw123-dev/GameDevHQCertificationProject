@@ -5,9 +5,9 @@ using UnityEngine;
 public class Tower : MonoBehaviour,IDamagable
 {
     //public List<GameObject> towers = new List<GameObject>();
-     [SerializeField]private int _health;
+     [SerializeField]private float _health;
 
-    public int health { get; set; }
+    public float health { get; set; }
     private bool _canBeHurt=true;
 
     // Start is called before the first frame update
@@ -22,11 +22,12 @@ public class Tower : MonoBehaviour,IDamagable
         
     }
 
-    public void Damage()
+    public void Damage(float healthDamage)
     {
         //StartCoroutine(WaitForDamage()); May or may not implement
-      
-            _health--;      
+
+        _health -= healthDamage;
+             
 
     }
     private IEnumerator WaitForDamage()
