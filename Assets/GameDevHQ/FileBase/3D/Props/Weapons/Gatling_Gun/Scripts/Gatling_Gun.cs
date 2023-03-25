@@ -30,10 +30,9 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
-        private bool _doneAttacking;
-        [SerializeField]private int _enemyCount;
         [SerializeField] private Transform _rotateTurret;
         [SerializeField]private GameObject _currentAttackedObject;
+        private bool _isUpgraded;
 
         // Use this for initialization
         void Start()
@@ -68,7 +67,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
                 if (_currentAttackedObject != null)
                 {
-                    _currentAttackedObject.GetComponent<IDamagable>().Damage(1);
+                    _currentAttackedObject.GetComponent<IDamagable>().Damage(0.2f);
                 }
                 if (_currentAttackedObject.GetComponent<IDamagable>().health<=0)
                 {

@@ -125,9 +125,6 @@ namespace GameDevHQ.FileBase.Missile_Launcher.Missile
         {
            // Destroy(other.gameObject); //destroy collided object this destroys the land
 
-           
-
-
             if (_explosionPrefab != null)
             {
                 var explosionClone = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);//changed to clone

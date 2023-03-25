@@ -108,7 +108,7 @@ public abstract class Enemy:MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag=="Tower")
+        if (other.tag=="Tower"||other.tag=="UpgradedTower")
         {
             
             Debug.Log("Attacking enemy");         

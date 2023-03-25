@@ -9,6 +9,12 @@ public class Tower : MonoBehaviour,IDamagable
 
     public float health { get; set; }
     private bool _canBeHurt=true;
+   [SerializeField] private bool _hasBeenUpgraded;
+
+    public void TowerHasBeenUpgraded()
+    {
+        _hasBeenUpgraded = true;
+    }
 
     // Start is called before the first frame update
     void Start()
