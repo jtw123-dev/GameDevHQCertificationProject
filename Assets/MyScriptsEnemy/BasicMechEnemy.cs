@@ -48,7 +48,10 @@ public class BasicMechEnemy : Enemy,IDamagable
     void Update()
     {
         FindTowerToAttack();
-        Dead();   
+
+            Dead();
+                
+ 
     }
      public override IEnumerator DissolveRoutine()
     {

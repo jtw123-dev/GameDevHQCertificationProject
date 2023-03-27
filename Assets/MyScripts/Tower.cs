@@ -6,15 +6,11 @@ public class Tower : MonoBehaviour,IDamagable
 {
     //public List<GameObject> towers = new List<GameObject>();
      [SerializeField]private float _health;
+    [SerializeField] private GameObject _explosion;
 
     public float health { get; set; }
-    private bool _canBeHurt=true;
-   [SerializeField] private bool _hasBeenUpgraded;
 
-    public void TowerHasBeenUpgraded()
-    {
-        _hasBeenUpgraded = true;
-    }
+   
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +29,13 @@ public class Tower : MonoBehaviour,IDamagable
         //StartCoroutine(WaitForDamage()); May or may not implement
 
         _health -= healthDamage;
-             
+             if (_health<=0)
+        {
+           var clone = Instantiate(_explosion,transform.position,Quaternion.identity);
+            Destroy(clone, 1.5f);
+            Destroy(this.gameObject, 1.5f);
+        }
 
     }
-    private IEnumerator WaitForDamage()
-    {
-        _canBeHurt = false;
-        yield return new WaitForSeconds(0.3f);
-        _canBeHurt = true;
-    }
+  
 }

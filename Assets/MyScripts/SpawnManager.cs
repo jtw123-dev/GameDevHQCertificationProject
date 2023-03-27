@@ -65,7 +65,8 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     RequestMech();
                     if (Time.time >= 20)
                     {
-                        _currentWave++;                     
+                        _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 1:
@@ -74,6 +75,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time>=30)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 2:
@@ -82,6 +84,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 40)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 3:
@@ -90,6 +93,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 50)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 4:
@@ -98,6 +102,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 60)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 5:
@@ -106,6 +111,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 70)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 6:
@@ -114,6 +120,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 80)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 7:
@@ -122,6 +129,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 90)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 8:
@@ -130,6 +138,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 100)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 9:
@@ -138,6 +147,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 110)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
                 case 10:
@@ -146,6 +156,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                     if (Time.time >= 120)
                     {
                         _currentWave++;
+                        UIManager.Instance.UpdateWaves();
                     }
                     break;
 

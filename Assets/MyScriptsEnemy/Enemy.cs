@@ -42,18 +42,37 @@ public abstract class Enemy:MonoBehaviour
    
     public  void Dead()
     {
-        if (_health <= 0)
+        if (_health <= 0&&_isDead==false)//best to check bool up here rather than down there.
         {
-            _audioSource.Stop();
-            _anim.applyRootMotion = false;
-            _leftMuzzleFlash.SetActive(false);
-            _rightMuzzleFlash.SetActive(false);
-            StartCoroutine(DissolveRoutine());
-            _agent.enabled = false;
-            _anim.SetTrigger("Death");
-            Invoke("Hide", 2.5f);//Destroy instead of hide for enemies that die
+            _isDead = true;
+          
+          
+            {
+                StartCoroutine(WaitToCallDeath());
+                _audioSource.Stop();
+                _anim.applyRootMotion = false;
+                _leftMuzzleFlash.SetActive(false);
+                _rightMuzzleFlash.SetActive(false);
+                StartCoroutine(DissolveRoutine());
+                _agent.enabled = false;
+                _anim.SetTrigger("Death");
+                Debug.Log("death is being called");
+                UIManager.Instance.UpdateWarFunds(150);
+                Invoke("Hide", 2.5f);//Destroy instead of hide for enemies that die    
+            }
+           
+          
+          
         }      
     }
+
+    private IEnumerator WaitToCallDeath()
+    {
+        _isDead = true;
+        yield return new WaitForSeconds(2.5f);
+        _isDead = true;
+    }
+
     public virtual  IEnumerator DissolveRoutine()
     {
         return null;
@@ -111,7 +130,11 @@ public abstract class Enemy:MonoBehaviour
         if (other.tag=="Tower"||other.tag=="UpgradedTower")
         {
             
-            Debug.Log("Attacking enemy");         
+            Debug.Log("Attacking enemy");      
+            if (other.GetComponent<Tower>()==null)
+            {
+                return;
+            }
                 other.GetComponent<Tower>().Damage(1); //changing it to nearestEnemy made it work better rather than obj.
                 _leftMuzzleFlash.SetActive(true);
                 _rightMuzzleFlash.SetActive(true);
@@ -129,6 +152,7 @@ public abstract class Enemy:MonoBehaviour
     {
         if (other.tag=="End")
         {
+            UIManager.Instance.UpdateLives();
             Hide();
         }
     }

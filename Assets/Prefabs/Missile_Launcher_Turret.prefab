@@ -944,6 +944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 3000
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
 --- !u!1 &4895001720612683283
 GameObject:
   m_ObjectHideFlags: 0
