@@ -5,7 +5,7 @@ using GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle;
 
 namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
 {
-    public class Missle_Launcher : MonoBehaviour
+    public class Missle_Launcher : MonoBehaviour,IDamagable
     {
 
         public enum MissileTypes
@@ -36,6 +36,11 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
         private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
         private Transform _target;
+
+        public float health { get; set; }
+        [SerializeField]private float _health;
+        [SerializeField] private GameObject _explosion;
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
@@ -93,6 +98,30 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
 
             _launched = false; //set launch bool to false
         }
+
+        public void Damage(float healthDamage)
+        {
+            _health -= healthDamage;
+            if (_health <= 0)
+            {
+                Ray rayOrigin = new Ray(transform.position, Vector3.down);
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(rayOrigin, out hitInfo))
+                {
+                    Debug.Log(hitInfo.collider.name);
+                    if (hitInfo.collider.tag == "Zone")
+                    {
+                        hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
+                    }
+                }
+
+                var clone = Instantiate(_explosion, transform.position, Quaternion.identity);
+                Destroy(clone, 1.5f);
+                Destroy(this.gameObject, 1.5f);
+            }
+        }
+    
     }
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class PlacementZoneScript : MonoBehaviour
 {
@@ -18,10 +19,22 @@ public class PlacementZoneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            _turretPreviews[_towerSelection].SetActive(false);
+        }
         if (Input.GetMouseButtonDown(1))
         {
-            _turretPreviews[_towerSelection].SetActive(false);          
+           // _turretPreviews[_towerSelection].SetActive(false);          
         }
+    }
+
+    public bool ChangeParticleStatusToTrue()
+    {
+        _playParticles = true;
+        Debug.Log("particles are true");
+        return _playParticles;
     }
 
     public bool  ChangeParticleStatus()

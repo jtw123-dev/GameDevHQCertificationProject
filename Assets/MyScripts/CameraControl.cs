@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraControl : MonoBehaviour
 {
@@ -8,94 +10,57 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private float _cameraMinY,_cameraMaxY,_cameraMinZ,_cameraMaxZ;
     [SerializeField] private Camera _camera;
     [SerializeField] private  float _zoomLevel;
-    [SerializeField] private float _sensitivity;
-    private float _zoomPosition;
-    [SerializeField] private float _maximumZoom;
+    private bool _hasCancelled =true;
+    private NewControls _input;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _input = new NewControls();
+        _input.Player.Enable();
+        _input.Player.CamerMovement.canceled += CamerMovement_canceled;
+        _input.Player.CamerMovement.performed += CamerMovement_performed;     
     }
 
+    private void CamerMovement_performed(InputAction.CallbackContext obj)
+    {
+        _hasCancelled = false;    
+    }
+
+    private void CamerMovement_canceled(InputAction.CallbackContext obj)
+    {
+        _hasCancelled = true;
+        _speed = 1;       
+    }
+
+    private void CalculateMovement()
+    {
+        var move = _input.Player.CamerMovement.ReadValue<Vector2>();
+        _speed += 0.1f;
+
+        var pos = transform.position;
+        pos.y = Mathf.Clamp(transform.position.y, _cameraMinY, _cameraMaxY);
+        pos.z = Mathf.Clamp(transform.position.z, _cameraMinZ, _cameraMaxZ);
+        pos.x = Mathf.Clamp(transform.position.x,-64 ,-21 );
+        transform.position = pos;
+        transform.Translate(new Vector3(move.x, 0, move.y) * Time.deltaTime * _speed);    
+    }
     // Update is called once per frame
     void Update()
-    {     
-        if (Input.GetKey(KeyCode.W))
-        {        
-            if (transform.position.y<=_cameraMaxY)
-
-            {
-                _speed += 0.1f;
-                transform.Translate(Vector3.up * Time.deltaTime * _speed);
-            }         
-        }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            _speed = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            if(transform.position.y>=_cameraMinY)   
-            {
-                _speed += 0.1f;
-                transform.Translate(Vector3.down * Time.deltaTime * _speed);
-            }          
-        }
-
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            _speed = 1;
-        }
-
-        else if (Input.GetKey(KeyCode.A))
-        {
-            if (transform.position.z<=_cameraMaxZ)
-            {
-                _speed += 0.1f;
-                transform.Translate(Vector3.left * Time.deltaTime * _speed);
-            }        
-        }
-
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            _speed = 1;
-        }
-
-
-        else if (Input.GetKey(KeyCode.D))
-        {
-           if (transform.position.z>=_cameraMinZ)
-            {
-                _speed += 0.1f;
-                transform.Translate(Vector3.right * Time.deltaTime * _speed);
-            }
-        }
-
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            _speed = 1;
-        }
-
-        _camera.fieldOfView += Input.mouseScrollDelta.y;
-        //_zoomLevel += Input.mouseScrollDelta.y * _sensitivity; //zoom position is a float//all are floats
-       // _zoomLevel = Mathf.Clamp(_zoomLevel, 0, _maximumZoom);
-       // _zoomPosition = Mathf.MoveTowards(_zoomPosition, _zoomLevel, _speed * Time.deltaTime);
-       // transform.position += transform.forward * _zoomLevel;
-
-
-        //_zoomLevel += Input.mouseScrollDelta.y;
-        //transform.position += transform.forward *_zoomLevel;
-       // Input.mouseScrollDelta.y += _camera.fieldOfView;
-        //else if (Input.mouseScrollDelta.y)
-    
-}
-
-    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag =="Boundary")
+           if (_hasCancelled==false)
+            {
+                CalculateMovement();
+            }
+          
+           if (_camera.fieldOfView>110)
         {
-           //try restricting via code instead
-            
+            _camera.fieldOfView = 110;
         }
-    }
+           else if (_camera.fieldOfView<20)
+        {
+            _camera.fieldOfView = 20;
+        }
+       _camera.fieldOfView += _input.Player.ScrollWheel.ReadValue<float>();     
+}
 }

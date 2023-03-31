@@ -496,7 +496,6 @@ GameObject:
   - component: {fileID: 2795746832913628814}
   - component: {fileID: 2795746834517782814}
   - component: {fileID: 2795746834517782813}
-  - component: {fileID: 2795746834517782811}
   - component: {fileID: 2795746834517782812}
   m_Layer: 0
   m_Name: Gatling_Gun
@@ -631,21 +630,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2795746834517782811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2795746832913457838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7fd8fc0e7f21e499a7ae4be78e8b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 3000
-  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
-    type: 3}
 --- !u!114 &2795746834517782812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +649,9 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: 08e0cb88300e54b09aa0deb684c3a3de, type: 3}
   _rotateTurret: {fileID: 2795746832913628804}
   _currentAttackedObject: {fileID: 0}
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
+  _health: 10
 --- !u!1 &2795746832913457848
 GameObject:
   m_ObjectHideFlags: 0

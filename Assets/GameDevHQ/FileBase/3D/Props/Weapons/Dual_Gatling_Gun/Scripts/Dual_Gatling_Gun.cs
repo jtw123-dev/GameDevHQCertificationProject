@@ -19,7 +19,7 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
     /// </summary>
 
     [RequireComponent(typeof(AudioSource))] //Require Audio Source component
-    public class Dual_Gatling_Gun : MonoBehaviour
+    public class Dual_Gatling_Gun : Tower,IDamagable
     {
         [SerializeField]
         private Transform[] _gunBarrel; //Reference to hold the gun barrel
@@ -34,15 +34,19 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         private bool _startWeaponNoise = true;
 
 
-        [SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
-        [SerializeField] private Transform _rotateTurret;
+        //[SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
+       // [SerializeField] private Transform _rotateTurret;
         [SerializeField] private GameObject _currentAttackedObject;
-
-
+    //    [SerializeField] private float _health;
+     //   [SerializeField] private GameObject _explosion;
+        public float health { get; set; }
+      //  private bool _isDead;
 
         // Use this for initialization
         void OnEnable()//changed from start
         {
+            health = _health;
+            _isDead = false;
             _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
             _muzzleFlash[1].SetActive(false); //setting the initial state of the muzzle flash effect to off
             _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
@@ -53,15 +57,15 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("dual is triggered");
             _inColliderGameObjects.Add(other.gameObject);
             _startWeaponNoise = true;
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag == "Enemy")
+            if (other.tag == "Enemy"&&_isDead==false)
             {
-                // Enemy._enemyDeath += IsMechDead;//
                 foreach (var obj in _inColliderGameObjects)
                 {
                     float distance = Vector3.Distance(this.gameObject.transform.position, obj.transform.position);
@@ -75,13 +79,15 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
                 if (_currentAttackedObject != null)
                 {
                     _currentAttackedObject.GetComponent<IDamagable>().Damage(0.4f);//changed from 0.2f
+                    Vector3 directionToFace = _currentAttackedObject.transform.position - _rotateTurret.position;
+                    _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
                 }
                 if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0)
                 {
                     _inColliderGameObjects.Remove(_currentAttackedObject);
                     _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
                     _muzzleFlash[1].SetActive(false);
-                  
+                    Debug.Log("stopped");
                     _audioSource.Stop(); //stop the sound effect from playing
                 }
                 else if (_currentAttackedObject.GetComponent<IDamagable>().health > 0)
@@ -100,14 +106,7 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
                 {
                     _audioSource.Play(); //play audio clip attached to audio source
                     _startWeaponNoise = false; //set the start weapon noise value to false to prevent calling it again
-                }
-
-                //Vector3 directionToFace = other.transform.position - _rotateTurret.position;
-                if (_currentAttackedObject != null)
-                {
-                    Vector3 directionToFace = _currentAttackedObject.transform.position - _rotateTurret.position;
-                    _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
-                }
+                }              
             }
         }
 
@@ -121,46 +120,15 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
             _audioSource.Stop(); //stop the sound effect from playing
             _startWeaponNoise = true; //set the start weapon noise value to true
         }
-        // Update is called once per frame
-        void Update()
-        {
-            /*
-            if (Input.GetMouseButton(0)) //Check for left click (held) user input
-            { 
-                RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel
-
-                //for loop to iterate through all muzzle flash objects
-                for(int i = 0; i < _muzzleFlash.Length; i++)
-                {
-                    _muzzleFlash[i].SetActive(true); //enable muzzle effect particle effect
-                    _bulletCasings[i].Emit(1); //Emit the bullet casing particle effect   
-                }
-
-                if (_startWeaponNoise == true) //checking if we need to start the gun sound
-                {
-                    _audioSource.Play(); //play audio clip attached to audio source
-                    _startWeaponNoise = false; //set the start weapon noise value to false to prevent calling it again
-                }
-
-            }
-            else if (Input.GetMouseButtonUp(0)) //Check for left click (release) user input
-            {
-                //for loop to iterate through all muzzle flash objects
-                for (int i = 0; i < _muzzleFlash.Length; i++)
-                {
-                    _muzzleFlash[i].SetActive(false); //enable muzzle effect particle effect
-                }
-                _audioSource.Stop(); //stop the sound effect from playing
-                _startWeaponNoise = true; //set the start weapon noise value to true
-            }*/
-        }
-
+      
         // Method to rotate gun barrel 
         void RotateBarrel() 
         {
             _gunBarrel[0].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
             _gunBarrel[1].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
         }
+
+      
     }
 
 }

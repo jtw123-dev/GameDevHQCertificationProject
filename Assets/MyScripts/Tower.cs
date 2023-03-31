@@ -2,39 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour,IDamagable
+public abstract class Tower : MonoBehaviour
 {
-    //public List<GameObject> towers = new List<GameObject>();
-     [SerializeField]private float _health;
-    [SerializeField] private GameObject _explosion;
+    [SerializeField]protected float _health;
+    [SerializeField] protected GameObject _explosion;
+    protected bool _isDead;
+    [SerializeField] protected List<GameObject> _inColliderGameObjects = new List<GameObject>();
+    [SerializeField] protected Transform _rotateTurret;
+    //[SerializeField] protected GameObject _currentAttackedObject;
 
-    public float health { get; set; }
 
-   
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+ 
     public void Damage(float healthDamage)
-    {
-        //StartCoroutine(WaitForDamage()); May or may not implement
-
+    {     
         _health -= healthDamage;
              if (_health<=0)
         {
-           var clone = Instantiate(_explosion,transform.position,Quaternion.identity);
+            _isDead = true;
+            Ray rayOrigin = new Ray(transform.position, Vector3.down);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(rayOrigin,out hitInfo))
+            {
+                Debug.Log(hitInfo.collider.name);
+                if (hitInfo.collider.tag=="Zone")
+                {                
+                    hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
+                }
+            }
+
+           var clone = Instantiate(_explosion,transform.position,Quaternion.identity);         
             Destroy(clone, 1.5f);
-            Destroy(this.gameObject, 1.5f);
+            Destroy(this.gameObject, 0.7f);
         }
+            
+    }
+
+    public void CommunicateDeath()
+    {
 
     }
   

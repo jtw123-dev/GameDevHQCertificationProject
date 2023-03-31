@@ -14918,7 +14918,6 @@ GameObject:
   - component: {fileID: 8179903284582765663}
   - component: {fileID: 8156255296240433875}
   - component: {fileID: 2769005968175233903}
-  - component: {fileID: 1419411881}
   m_Layer: 0
   m_Name: Dual_Gatling_Gun
   m_TagString: UpgradedTower
@@ -14954,6 +14953,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa87186eb31905c4fa207e5970b35579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 10
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
+  _inColliderGameObjects: []
+  _rotateTurret: {fileID: 8078849985966706563}
+  _currentAttackedObject: {fileID: 0}
   _gunBarrel:
   - {fileID: 8071513432811119285}
   - {fileID: 8071403335703833625}
@@ -14964,9 +14969,6 @@ MonoBehaviour:
   - {fileID: 8274012160773733351}
   - {fileID: 8273481012405602659}
   _fireSound: {fileID: 8300000, guid: ebcd7ceac90454c1e9dc458cb87b6f75, type: 3}
-  _inColliderGameObjects: []
-  _rotateTurret: {fileID: 8078849985966706563}
-  _currentAttackedObject: {fileID: 0}
 --- !u!82 &8156255296240433875
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15076,21 +15078,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2187576, y: 2.7556717, z: 4.917887}
   m_Center: {x: 0.015983343, y: 0.87783587, z: 0.5226691}
---- !u!114 &1419411881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8076563895907809129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7fd8fc0e7f21e499a7ae4be78e8b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 3000
-  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
-    type: 3}
 --- !u!1 &8076638458628133677
 GameObject:
   m_ObjectHideFlags: 0

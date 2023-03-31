@@ -8,20 +8,12 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private Text _wavesText;
     private int _waveNumber;
-
     [SerializeField] private Text _warFundsText;
-    // public Text warFundsText;
     [SerializeField] private int _currentWarFunds;
     [SerializeField] private Text _livesText;
-   [SerializeField] private int _lives;
+    [SerializeField] private int _lives;
     [SerializeField] private Text _statusText;
-    public override void Init()
-    {
-        base.Init();
-    }
-
-
-
+   
     public void Restart()
     {
         SceneManager.LoadScene(0);
@@ -83,7 +75,6 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if ( _currentWarFunds>=towerCost)
         {
-            Debug.Log("update funds was called");
             _currentWarFunds -= towerCost;
             _warFundsText.text = _currentWarFunds.ToString();
             return true;
@@ -93,15 +84,12 @@ public class UIManager : MonoSingleton<UIManager>
         {
             return false;
         }
-        return false;
-       
+        return false;     
     }
 
     public void UpdateWarFunds(int prize)
     {
-        Debug.Log("updated funds");
         _currentWarFunds += prize;
         _warFundsText.text = _currentWarFunds.ToString();
     }
-
 }

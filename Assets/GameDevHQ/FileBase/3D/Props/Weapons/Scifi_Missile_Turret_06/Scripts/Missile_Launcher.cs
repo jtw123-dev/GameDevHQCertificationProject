@@ -10,7 +10,7 @@ using GameDevHQ.FileBase.Missile_Launcher.Missile;
 
 namespace GameDevHQ.FileBase.Missile_Launcher
 {
-    public class Missile_Launcher : MonoBehaviour
+    public class Missile_Launcher : MonoBehaviour,IDamagable
     {
         public enum MissileType
         {
@@ -44,6 +44,10 @@ namespace GameDevHQ.FileBase.Missile_Launcher
         [SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
         private bool _doneAttacking;
         [SerializeField] private GameObject _currentAttackedObject;
+
+        public float health { get; set; }
+        [SerializeField] private float _health;
+        [SerializeField] private GameObject _explosion;
 
         private void Update()
         {
@@ -95,6 +99,29 @@ namespace GameDevHQ.FileBase.Missile_Launcher
 
             _launched = false; //set launch bool to false
         }
+
+        public void Damage(float healthDamage)
+        {
+            _health -= healthDamage;
+            if (_health <= 0)
+            {
+                Ray rayOrigin = new Ray(transform.position, Vector3.down);
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(rayOrigin, out hitInfo))
+                {
+                    Debug.Log(hitInfo.collider.name);
+                    if (hitInfo.collider.tag == "Zone")
+                    {
+                        hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
+                    }
+                }
+
+                var clone = Instantiate(_explosion, transform.position, Quaternion.identity);
+                Destroy(clone, 1.5f);
+                Destroy(this.gameObject, 1.5f);
+            }       
+    }
     }
 }
 
