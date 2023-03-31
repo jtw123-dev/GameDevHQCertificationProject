@@ -10,6 +10,7 @@ TagManager:
   - Zone
   - Enemy
   - Preview
+  - UpgradedTower
   layers:
   - Default
   - TransparentFX

@@ -189,7 +189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2795746832913457828}
-  m_LocalRotation: {x: 0.000000010216935, y: 2.0140014e-16, z: -0.000000019712383,
+  m_LocalRotation: {x: 0.000000010337049, y: 2.0376787e-16, z: -0.00000001994413,
     w: 1}
   m_LocalPosition: {x: 0.000000013879197, y: 0.3104724, z: -0.049684644}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -496,7 +496,6 @@ GameObject:
   - component: {fileID: 2795746832913628814}
   - component: {fileID: 2795746834517782814}
   - component: {fileID: 2795746834517782813}
-  - component: {fileID: 2795746834517782811}
   - component: {fileID: 2795746834517782812}
   m_Layer: 0
   m_Name: Gatling_Gun
@@ -512,7 +511,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2795746832913457838}
-  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.7071078}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 60.30301, y: 0, z: -8.202774}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -533,8 +532,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.178599, y: 1, z: 3.8682942}
-  m_Center: {x: -0.022539854, y: 0, z: 0.25127077}
+  m_Size: {x: 4.0030603, y: 1.7100292, z: 5.7878838}
+  m_Center: {x: -0.529883, y: 0.35501474, z: -0.28785896}
 --- !u!82 &2795746834517782813
 AudioSource:
   m_ObjectHideFlags: 0
@@ -631,19 +630,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2795746834517782811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2795746832913457838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7fd8fc0e7f21e499a7ae4be78e8b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 3000
 --- !u!114 &2795746834517782812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,9 +643,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gunBarrel: {fileID: 2795746832913628808}
+  _inColliderGameObjects: []
   Muzzle_Flash: {fileID: 2795746832956454611}
   bulletCasings: {fileID: 2597673907585960894}
   fireSound: {fileID: 8300000, guid: 08e0cb88300e54b09aa0deb684c3a3de, type: 3}
+  _rotateTurret: {fileID: 2795746832913628804}
+  _currentAttackedObject: {fileID: 0}
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
+  _health: 10
 --- !u!1 &2795746832913457848
 GameObject:
   m_ObjectHideFlags: 0

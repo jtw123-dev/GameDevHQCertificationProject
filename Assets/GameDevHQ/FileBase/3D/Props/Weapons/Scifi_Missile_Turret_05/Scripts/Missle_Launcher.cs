@@ -5,8 +5,17 @@ using GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle;
 
 namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
 {
-    public class Missle_Launcher : MonoBehaviour
+    public class Missle_Launcher : MonoBehaviour,IDamagable
     {
+
+        public enum MissileTypes
+        {
+            Normal,
+            Homing
+        }
+
+        [SerializeField]
+        private MissileTypes _missileType;
         [SerializeField]
         private GameObject _missilePrefab; //holds the missle gameobject to clone
         [SerializeField]
@@ -26,14 +35,30 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
         [SerializeField]
         private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
+        private Transform _target;
+
+        public float health { get; set; }
+        [SerializeField]private float _health;
+        [SerializeField] private GameObject _explosion;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
             {
-                _launched = true; //set the launch bool to true
-                StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
+               // _launched = true; //set the launch bool to true
+              //  StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_launched == true)
+            {
+                return;
+            }
+            _launched = true;
+            StartCoroutine(FireRocketsRoutine());
+            _target = other.transform;        
         }
 
         IEnumerator FireRocketsRoutine()
@@ -55,8 +80,8 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
                 rocketLeft.transform.parent = null; //set the rocket parent to null
                 rocketRight.transform.parent = null; //set the rocket parent to null
 
-                rocketLeft.GetComponent<GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle.Missle>().AssignMissleRules(_launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties 
-                rocketRight.GetComponent<GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle.Missle>().AssignMissleRules(_launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties 
+                rocketLeft.GetComponent<GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle.Missle>().AssignMissleRules( _missileType,_target,_launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties 
+                rocketRight.GetComponent<GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle.Missle>().AssignMissleRules(_missileType, _target, _launchSpeed, _power, _fuseDelay, _destroyTime); //assign missle properties 
 
                 _misslePositionsLeft[i].SetActive(false); //turn off the rocket sitting in the turret to make it look like it fired
                 _misslePositionsRight[i].SetActive(false); //turn off the rocket sitting in the turret to make it look like it fired
@@ -73,6 +98,30 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
 
             _launched = false; //set launch bool to false
         }
+
+        public void Damage(float healthDamage)
+        {
+            _health -= healthDamage;
+            if (_health <= 0)
+            {
+                Ray rayOrigin = new Ray(transform.position, Vector3.down);
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(rayOrigin, out hitInfo))
+                {
+                    Debug.Log(hitInfo.collider.name);
+                    if (hitInfo.collider.tag == "Zone")
+                    {
+                        hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
+                    }
+                }
+
+                var clone = Instantiate(_explosion, transform.position, Quaternion.identity);
+                Destroy(clone, 1.5f);
+                Destroy(this.gameObject, 1.5f);
+            }
+        }
+    
     }
 }
 

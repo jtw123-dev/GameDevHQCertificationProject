@@ -863,7 +863,6 @@ GameObject:
   - component: {fileID: 4897707385939822237}
   - component: {fileID: 4791719992837954307}
   - component: {fileID: 114764318352228470}
-  - component: {fileID: 114764318352228469}
   m_Layer: 0
   m_Name: Missile_Launcher_Turret
   m_TagString: Tower
@@ -918,6 +917,9 @@ MonoBehaviour:
   _target: {fileID: 0}
   _inColliderGameObjects: []
   _currentAttackedObject: {fileID: 0}
+  _health: 10
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
 --- !u!65 &114764318352228470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -931,19 +933,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.4755793, y: 1, z: 4.1055527}
   m_Center: {x: 0.1941477, y: 0, z: -0.09}
---- !u!114 &114764318352228469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894948983845503269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7fd8fc0e7f21e499a7ae4be78e8b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 3000
 --- !u!1 &4895001720612683283
 GameObject:
   m_ObjectHideFlags: 0

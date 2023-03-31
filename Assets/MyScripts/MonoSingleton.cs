@@ -15,17 +15,10 @@ public abstract class MonoSingleton<T>: MonoBehaviour where T :MonoSingleton<T>
                 Debug.Log( typeof(T).ToString() + " is null");
             }
             return _instance;
-        }
-       
+        }      
     }
-
     private void Awake()
     {
         _instance = this as T;
-    }
-
-   public virtual void Init()
-    {
-
     }
 }

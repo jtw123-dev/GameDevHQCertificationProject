@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/GameDevHQ/FileBase/Projects/Tutorials/Starter_Files/Epic_Tower_Defense/Scenes/Start_Level.unity
-    guid: 7f6844bb66beba745bb9f13b29426c7f
+    path: Assets/Scenes/GameScene.unity
+    guid: 2d9aebb2eef1ca64b9479ae3768fe8db
   m_configObjects: {}

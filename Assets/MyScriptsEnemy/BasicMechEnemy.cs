@@ -8,7 +8,7 @@ public class BasicMechEnemy : Enemy,IDamagable
 
 {
     [SerializeField] private Renderer[] _renderer;
-
+   
     public float health { get; set; }
 
     // Start is called before the first frame update
@@ -46,9 +46,20 @@ public class BasicMechEnemy : Enemy,IDamagable
 
     // Update is called once per frame
     void Update()
-    {
-        FindTowerToAttack();
-        Dead();   
+    {       
+            Dead();     
+        if (_isAttacking==true)
+        {
+          _currentHealthOfTower--;
+        }
+
+        if (_currentHealthOfTower <= 0)
+        {
+            _isAttacking = false;
+            _leftMuzzleFlash.SetActive(false);
+            _rightMuzzleFlash.SetActive(false);
+            _audioSource.Stop(); //stop the sound effect from playing
+        }
     }
      public override IEnumerator DissolveRoutine()
     {
@@ -77,8 +88,40 @@ public class BasicMechEnemy : Enemy,IDamagable
 
     public void Damage(float healthDamage)
     {
-        _health -= healthDamage;
-        
-         //  _health--;
+        _health -= healthDamage;    
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Tower" || other.tag == "UpgradedTower")
+        {
+            
+          
+            _isAttacking = true;
+            if (other.GetComponent<IDamagable>() != null)//
+            {
+                _currentHealthOfTower = other.GetComponent<IDamagable>().health;
+                other.GetComponent<IDamagable>().Damage(_attackDamage); //changing it to nearestEnemy made it work better rather than obj.              
+                _leftMuzzleFlash.SetActive(true);
+                _rightMuzzleFlash.SetActive(true);              
+            }
+            if (_startWeaponNoise == true) //checking if we need to start the gun sound
+            {
+                _audioSource.Play(); //play audio clip attached to audio source
+                _startWeaponNoise = false; //set the start weapon noise value to false to prevent calling it again
+            }
+            Vector3 directionToFace = other.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(directionToFace);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _leftMuzzleFlash.SetActive(false);
+        _rightMuzzleFlash.SetActive(false);
+        _startWeaponNoise = true;
+        _audioSource.Stop();
+        _isAttacking = false;
+    }
+
 }

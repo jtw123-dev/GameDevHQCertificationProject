@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlaceTowerScript : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class PlaceTowerScript : MonoBehaviour
     private int _towerSelection;
     private GameObject _currentObject;
     [SerializeField]private bool _isOnZone;
-    [SerializeField] private GameObject _preview;
     private bool _canPlace;
-    [SerializeField] private GameObject _upgradeGatlingTower, _upgradeMissileTurret;
-
+    [SerializeField] private GameObject _upgradeGatlingTowerUI, _upgradeMissileTurretUI;
+    [SerializeField] private GameObject _dualGatlingGun, _dualMissileTurret;
+    [SerializeField] private GameObject _towerToHoldForUpgrading;  
+     private int _currentCost =200;
+    
     // Update is called once per frame
     void Update()
     {
@@ -25,7 +28,6 @@ public class PlaceTowerScript : MonoBehaviour
         {
             MoveCurrentObjectToMouse();
             ReleaseIfClicked();
-            //CheckIfTowerExists();
         }
     }
 
@@ -47,40 +49,52 @@ public class PlaceTowerScript : MonoBehaviour
                 Debug.Log("hit tower");
               
                 
-            }
-            // _previewTower.transform.position = hitInfo.point;
-            //_turretPreviews[_towerSelection].transform.position = hitInfo.point;
+            }           
         }
     }
-
 
     private void TowerSelected(int tower)
     {
         _towerSelection = tower;
+        if (_towerSelection == 0)
+        {
+            _currentCost = 200;
+        }
+        else if (_towerSelection == 1)
+        {
+            _currentCost = 500;
+        }
     }
 
     private void HandleTower()
     {
         PlacementZoneScript.onSelect += TowerSelected;
         PreviewTurretScript._onClick += CanPlaceTower;
-        if (Input.GetMouseButtonDown(0))
+        if ( Mouse.current.leftButton.wasPressedThisFrame)//  Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             PreviewTurretScript._onClick += CanPlaceTower;
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.collider.tag == "Tower")
+                if (hitInfo.collider.tag=="UpgradedTower")
+                {
+                    return;
+                }
+
+                else if (hitInfo.collider.tag == "Tower")
                 {     
                     if (_towerSelection==0)
-                    {
-                        _upgradeGatlingTower.SetActive(true);
-
+                    {                
+                            _upgradeGatlingTowerUI.SetActive(true);
+                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;                     
                     }
 
                     else if (_towerSelection==1)
                     {
-                        _upgradeMissileTurret.SetActive(true);
+                        UIManager.Instance.UpdateWarFundsAfterTowerBuy(750);
+                            _upgradeMissileTurretUI.SetActive(true);
+                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;  
                     }
                     return;
                 }
@@ -92,29 +106,28 @@ public class PlaceTowerScript : MonoBehaviour
                 else if (_canPlace==false)
                 {
                     return;
-                }
-                else if (UIManager.Instance.totalWarFunds<200)
-                {
-                    return;
-                }
+                }              
             }
-
             PlacementZoneScript.onSelect += TowerSelected;
-            Debug.Log(_towerSelection);
-            //  _currentObject = Instantiate(_gatlingGun); 
-            hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatus();
-            _currentObject = Instantiate(_towersCollection[_towerSelection]);
+            if (UIManager.Instance.UpdateWarFundsAfterTowerBuy(_currentCost)==true)
+            {
+                _currentObject = Instantiate(_towersCollection[_towerSelection],transform.position,Quaternion.Euler(0,-90,0));
+                hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatus();
+            }         
         }
     }
-   
     public void UpgradeTower()
     {
-        if (_towerSelection==0)
-
+        if (_towerSelection==0 &&UIManager.Instance.UpdateWarFundsAfterTowerBuy(500)==true)
         {
-           // _currentObject = Instantiate()
+            Instantiate(_dualGatlingGun, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
+            Destroy(_towerToHoldForUpgrading);
         }
-
+      else if (_towerSelection ==1 && UIManager.Instance.UpdateWarFundsAfterTowerBuy(750)==true)
+        {
+            Instantiate(_dualMissileTurret, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
+            Destroy(_towerToHoldForUpgrading);
+        }
     }
 
     public void MoveCurrentObjectToMouse()
