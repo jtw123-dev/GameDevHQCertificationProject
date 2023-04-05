@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using GameDevHQ.FileBase.Gatling_Gun;
 
 public class PlaceTowerScript : MonoBehaviour
 {
@@ -16,8 +17,9 @@ public class PlaceTowerScript : MonoBehaviour
     private bool _canPlace;
     [SerializeField] private GameObject _upgradeGatlingTowerUI, _upgradeMissileTurretUI;
     [SerializeField] private GameObject _dualGatlingGun, _dualMissileTurret;
-    [SerializeField] private GameObject _towerToHoldForUpgrading;  
-     private int _currentCost =200;
+    [SerializeField] private GameObject _towerToHoldForUpgrading;
+    private GameObject _currentAttackedObjectToHold;
+    private int _currentCost =200;
     
     // Update is called once per frame
     void Update()
@@ -36,23 +38,6 @@ public class PlaceTowerScript : MonoBehaviour
         _canPlace = canPlace;
     }
 
-
-    private void CheckIfTowerExists()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo))
-        {
-            if (hitInfo.collider.tag == "Tower")
-            {
-                Debug.Log("hit tower");
-              
-                
-            }           
-        }
-    }
-
     private void TowerSelected(int tower)
     {
         _towerSelection = tower;
@@ -66,6 +51,12 @@ public class PlaceTowerScript : MonoBehaviour
         }
     }
 
+
+    private void OnDisable()
+    {
+        PlacementZoneScript.onSelect -= TowerSelected;
+        PreviewTurretScript._onClick -= CanPlaceTower;
+    }
     private void HandleTower()
     {
         PlacementZoneScript.onSelect += TowerSelected;
@@ -87,12 +78,12 @@ public class PlaceTowerScript : MonoBehaviour
                     if (_towerSelection==0)
                     {                
                             _upgradeGatlingTowerUI.SetActive(true);
-                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;                     
+                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;
+      //                  _currentAttackedObjectToHold = hitInfo.collider.GetComponent<Gatling_Gun>().ReturnCurrentlyAttackedObjectToUpgrade();//first grab reference to gameobject that is currentlyattackedobject than assign it to the dualgatling gun
                     }
 
                     else if (_towerSelection==1)
-                    {
-                        UIManager.Instance.UpdateWarFundsAfterTowerBuy(750);
+                    {                     
                             _upgradeMissileTurretUI.SetActive(true);
                             _towerToHoldForUpgrading = hitInfo.collider.gameObject;  
                     }
@@ -130,6 +121,10 @@ public class PlaceTowerScript : MonoBehaviour
         }
     }
 
+    public void CurrentlyAttackedObject()
+    {
+
+    }
     public void MoveCurrentObjectToMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -145,7 +140,7 @@ public class PlaceTowerScript : MonoBehaviour
     }
     private void ReleaseIfClicked()
     {
-        if (Input.GetMouseButtonDown(0))//changed from 1
+        if ( Mouse.current.leftButton.wasPressedThisFrame) //Input.GetMouseButtonDown(0))//changed from 1
         {
             _currentObject = null;
         }

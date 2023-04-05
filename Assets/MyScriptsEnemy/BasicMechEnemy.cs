@@ -14,20 +14,20 @@ public class BasicMechEnemy : Enemy,IDamagable
     // Start is called before the first frame update
     void Start()
     {
-        _agent.destination = _waypoints[1].transform.position;
+      //  _agent.destination = _waypoints[1].transform.position;
         
-        health = _health;
-        foreach(var obj in _renderer)
-        {
-            obj.material.SetFloat("_Clipping_value", 0);
-        }
-        _leftMuzzleFlash.SetActive(false); //setting the initial state of the muzzle flash effect to off
-        _rightMuzzleFlash.SetActive(false);
+      //  health = _health;
+        //foreach(var obj in _renderer)
+      //  {
+       //     obj.material.SetFloat("_Clipping_value", 0);
+      //  }
+       // _leftMuzzleFlash.SetActive(false); //setting the initial state of the muzzle flash effect to off
+       // _rightMuzzleFlash.SetActive(false);
         _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
         _audioSource.playOnAwake = false; //disabling play on awake
         _audioSource.loop = true; //making sure our sound effect loops
         _audioSource.clip = _fireSound; //assign the clip to play
-
+        
     }
     private void OnEnable()
     {
@@ -47,7 +47,12 @@ public class BasicMechEnemy : Enemy,IDamagable
     // Update is called once per frame
     void Update()
     {       
-            Dead();     
+        if (_health<=0)
+        {
+            StartCoroutine(DissolveRoutine());
+            Dead();
+        }
+          
         if (_isAttacking==true)
         {
           _currentHealthOfTower--;
@@ -61,7 +66,7 @@ public class BasicMechEnemy : Enemy,IDamagable
             _audioSource.Stop(); //stop the sound effect from playing
         }
     }
-     public override IEnumerator DissolveRoutine()
+     public  IEnumerator DissolveRoutine()
     {
         while(true)
         {
@@ -74,7 +79,7 @@ public class BasicMechEnemy : Enemy,IDamagable
         }
     }
 
-    public override IEnumerator ResetDissolve()
+    public IEnumerator ResetDissolve()
     {
         while (true)
         {
@@ -94,9 +99,7 @@ public class BasicMechEnemy : Enemy,IDamagable
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Tower" || other.tag == "UpgradedTower")
-        {
-            
-          
+        {                
             _isAttacking = true;
             if (other.GetComponent<IDamagable>() != null)//
             {
@@ -123,5 +126,4 @@ public class BasicMechEnemy : Enemy,IDamagable
         _audioSource.Stop();
         _isAttacking = false;
     }
-
 }

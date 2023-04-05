@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private Text _wavesText;
-    private int _waveNumber;
+    private int _waveNumber =1;
     [SerializeField] private Text _warFundsText;
     [SerializeField] private int _currentWarFunds;
     [SerializeField] private Text _livesText;
     [SerializeField] private int _lives;
     [SerializeField] private Text _statusText;
-   
+
+    private void Update()
+    {
+        if(Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Application.Quit();
+        }
+    }
+
     public void Restart()
     {
         SceneManager.LoadScene(0);
@@ -69,6 +78,11 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _waveNumber++;
         _wavesText.text = _waveNumber.ToString() + " /10";
+
+        if (_waveNumber>10)
+        {
+            _wavesText.text = 10.ToString();
+        }
     }
 
     public bool UpdateWarFundsAfterTowerBuy(int towerCost)

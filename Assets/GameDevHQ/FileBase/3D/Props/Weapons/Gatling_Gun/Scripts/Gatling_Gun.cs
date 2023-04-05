@@ -29,8 +29,9 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
-        [SerializeField]private GameObject _currentAttackedObject;
+        private GameObject _currentAttackedObject;       
         private bool _isUpgraded;
+        [SerializeField] private float _attackDamage; 
 
         public float health { get; set; }
 
@@ -45,16 +46,40 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         }
         //might need to disable list 
 
+        public GameObject ReturnCurrentlyAttackedObjectToUpgrade()
+        {
+            return _currentAttackedObject;
+        }
+
+
         private void OnEnable()
         {
             health = _health;
         }
+        private void Update()
+        {
+            if (_isAttacking == true)
+            {
+                _currentHealthOfEnemy--;
+            }
 
-
+            if (_currentHealthOfEnemy <= 0)
+            {
+                _isAttacking = false;                          
+                _inColliderGameObjects.Remove(_currentAttackedObject);
+                Muzzle_Flash.SetActive(false);
+                _audioSource.Stop(); //stop the sound effect from playing
+            }
+        }
         private void OnTriggerEnter(Collider other)
         {
+            if (other.tag=="Tornado")
+            {
+                return;
+            }
             _inColliderGameObjects.Add(other.gameObject);
             _startWeaponNoise = true;
+            _currentAttackedObject = other.gameObject;
         }
         private void OnTriggerStay(Collider other)
         {
@@ -62,30 +87,38 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             {
                 foreach (var obj in _inColliderGameObjects)
                 {
-                    float distance = Vector3.Distance(this.gameObject.transform.position, obj.transform.position);
-                    if (distance <= 5)
+
+                    if (this.gameObject != null && obj != null)
                     {
-                        _currentAttackedObject = obj;
-                        obj.GetComponent<IDamagable>().health--;     
+                        float distance = Vector3.Distance(this.gameObject.transform.position, obj.transform.position);
+                        if (distance <= 5)
+                        {
+                            _currentAttackedObject = obj;
+
+                            // obj.GetComponent<IDamagable>().health--;          
+                        }
                     }
+                    
                 }
 
                 if (_currentAttackedObject != null)
                 {
-                    _currentAttackedObject.GetComponent<IDamagable>().Damage(0.2f);
+                    _isAttacking = true;
+                    _currentHealthOfEnemy = other.GetComponent<IDamagable>().health;
+                    _currentAttackedObject.GetComponent<IDamagable>().Damage(_attackDamage);
                     RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel
                     Muzzle_Flash.SetActive(true); //enable muzzle effect particle effect
                     bulletCasings.Emit(1); //        
                     Vector3 directionToFace = _currentAttackedObject.transform.position - _rotateTurret.position;
                     _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
                 }
-                  if (_currentAttackedObject.GetComponent<IDamagable>().health<=0)//this does not work as else if 
+                  if (_currentAttackedObject.GetComponent<IDamagable>().health<=0 &&_currentAttackedObject!=null)//this does not work as else if 
                 {
                     _inColliderGameObjects.Remove(_currentAttackedObject);
                     Muzzle_Flash.SetActive(false);
                     _audioSource.Stop(); //stop the sound effect from playing
-                }           
-
+                } 
+                 
                 if (_startWeaponNoise == true) //checking if we need to start the gun sound
                 {
                     _audioSource.Play(); //play audio clip attached to audio source
@@ -106,8 +139,5 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         {
             _gunBarrel.transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
         }
-
-       
-        
     }
 }

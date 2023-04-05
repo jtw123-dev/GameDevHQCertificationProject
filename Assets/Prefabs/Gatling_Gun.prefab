@@ -642,16 +642,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7edd4816764b2cb111ea15f8f117a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunBarrel: {fileID: 2795746832913628808}
+  _health: 1000
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
   _inColliderGameObjects: []
+  _rotateTurret: {fileID: 2795746832913628804}
+  _gunBarrel: {fileID: 2795746832913628808}
   Muzzle_Flash: {fileID: 2795746832956454611}
   bulletCasings: {fileID: 2597673907585960894}
   fireSound: {fileID: 8300000, guid: 08e0cb88300e54b09aa0deb684c3a3de, type: 3}
-  _rotateTurret: {fileID: 2795746832913628804}
-  _currentAttackedObject: {fileID: 0}
-  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
-    type: 3}
-  _health: 10
+  _attackDamage: 1
 --- !u!1 &2795746832913457848
 GameObject:
   m_ObjectHideFlags: 0

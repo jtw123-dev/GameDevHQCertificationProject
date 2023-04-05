@@ -24,10 +24,6 @@ public class PlacementZoneScript : MonoBehaviour
         {
             _turretPreviews[_towerSelection].SetActive(false);
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-           // _turretPreviews[_towerSelection].SetActive(false);          
-        }
     }
 
     public bool ChangeParticleStatusToTrue()

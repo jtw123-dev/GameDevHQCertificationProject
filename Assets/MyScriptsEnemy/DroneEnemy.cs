@@ -1,20 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using GameDevHQ.FileBase.Gatling_Gun;
 
 public class DroneEnemy : Enemy,IDamagable
 {
     public float health { get ; set; }
     [SerializeField] private GameObject _galaxyExplosion;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _agent.destination = _waypoints[1].transform.position;
-
-        health = _health;
-    }
+ 
     private void Update()
     {
         Dead();
@@ -31,11 +24,10 @@ public class DroneEnemy : Enemy,IDamagable
     }
     public override void Dead()
     {
-        if (_health <= 0 && _isDead == false)//best to check bool up here rather than down there.
+        if (_health <= 1 && _isDead == false)//best to check bool up here rather than down there.
         {
             _isDead = true;
             {
-
                 _agent.enabled = false;
                 UIManager.Instance.UpdateWarFunds(150);
                 Invoke("Hide", 0.5f);
@@ -56,12 +48,18 @@ public class DroneEnemy : Enemy,IDamagable
             {         
                 return;
             }
-            other.GetComponent<IDamagable>().Damage(_attackDamage);                      
+            other.GetComponent<IDamagable>().Damage(_attackDamage);
             Vector3 directionToFace = other.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(directionToFace);
-            Instantiate(_galaxyExplosion,transform.position,Quaternion.identity);
-            _health = 0;
+            var galaxyClone = Instantiate(_galaxyExplosion,transform.position,Quaternion.identity);
+            Destroy(galaxyClone, 1);
+            _health = 1;
             Dead();
+        }
+        else if (other.tag=="End")
+        {
+            UIManager.Instance.UpdateLives();
+            Hide();
         }
 }
 }

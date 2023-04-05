@@ -32,18 +32,28 @@ public abstract class Enemy:MonoBehaviour
         this.gameObject.SetActive(false);       
     }
 
-
     public virtual void Dead()
     {
         if (_health <= 0&&_isDead==false)//best to check bool up here rather than down there.
         {
             _isDead = true;               
             {            
-                _audioSource.Stop();             
+                if(_audioSource!=null)
+                {
+                    _audioSource.Stop();
+                }
+                   
                 _anim.applyRootMotion = false;
-                _leftMuzzleFlash.SetActive(false);
-                _rightMuzzleFlash.SetActive(false);
-                StartCoroutine(DissolveRoutine());
+
+                if (_leftMuzzleFlash!=null)
+                {
+                    _leftMuzzleFlash.SetActive(false);
+                }
+             if (_rightMuzzleFlash!=null)
+                {
+                    _rightMuzzleFlash.SetActive(false);
+                }
+               
                 _agent.enabled = false;
                 _anim.SetTrigger("Death");
                 UIManager.Instance.UpdateWarFunds(150);
@@ -52,18 +62,6 @@ public abstract class Enemy:MonoBehaviour
         }      
     }
 
-    public virtual  IEnumerator DissolveRoutine()
-    {
-        return null;
-    }
-
-    public virtual IEnumerator ResetDissolve()
-    {
-        return null;
-    }
-   
-   
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag=="End")
@@ -71,7 +69,5 @@ public abstract class Enemy:MonoBehaviour
             UIManager.Instance.UpdateLives();
             Hide();
         }
-    }
-
-  
+    }  
 }

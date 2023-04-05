@@ -25,7 +25,6 @@ public class PreviewTurretScript : MonoBehaviour
         CanIPlace(_placeOnClick);
     }
 
-
     // Update is called once per frame
     void Update()
     {
