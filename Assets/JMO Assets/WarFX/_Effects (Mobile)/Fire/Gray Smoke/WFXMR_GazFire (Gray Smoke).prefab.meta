@@ -1,7 +1,3 @@
-fileFormatVersion: 2
-guid: 4c5ef88d48ac4ee43b30dbc6343f6d2e
-labels:
-- warfx
-- mobile
-- particles
-- fire
+version https://git-lfs.github.com/spec/v1
+oid sha256:76cef1525debaf57c78f1e6a43795650261363ce43201d99809dec09872749dd
+size 104

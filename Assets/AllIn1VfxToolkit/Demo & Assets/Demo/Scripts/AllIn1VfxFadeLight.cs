@@ -1,27 +1,3 @@
-﻿using UnityEngine;
-
-namespace AllIn1VfxToolkit.Demo.Scripts
-{
-    [RequireComponent(typeof(Light))]
-    public class AllIn1VfxFadeLight : MonoBehaviour
-    {
-        [SerializeField] private float fadeDuration = 0.1f;
-        [SerializeField] private bool destroyWhenFaded = true;
-        private Light targetLight;
-        private float animationRatioRemaining = 1f;
-        private float iniLightIntensity;
-
-        private void Start()
-        {
-            targetLight = GetComponent<Light>();
-            iniLightIntensity = targetLight.intensity;
-        }
-
-        private void Update()
-        {
-            targetLight.intensity = Mathf.Lerp(0f, iniLightIntensity, animationRatioRemaining);
-            animationRatioRemaining -= Time.deltaTime / fadeDuration;
-            if(destroyWhenFaded && animationRatioRemaining <= 0f) Destroy(gameObject);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8e1cf600bfa8f97a1efe3dbca417b0b884fe66460780a827b850e9be65dc022a
+size 877

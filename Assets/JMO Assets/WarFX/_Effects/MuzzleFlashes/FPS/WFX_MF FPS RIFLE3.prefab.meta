@@ -1,8 +1,3 @@
-fileFormatVersion: 2
-guid: 8eaaa4f553116f44b8459bc24201c514
-labels:
-- warfx
-- particles
-- weapon
-- muzzle flash
-- desktop
+version https://git-lfs.github.com/spec/v1
+oid sha256:b0aaf1692e0103335259cc7ff15df723a48b94b3f9201aa10b21f13bab807806
+size 122

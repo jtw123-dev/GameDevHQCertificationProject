@@ -1,16 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
-public class CFX_Demo_RotateCamera : MonoBehaviour
-{
-	static public bool rotating = true;
-	
-	public float speed = 30.0f;
-	public Transform rotationCenter;
-	
-	void Update ()
-	{
-		if(rotating)
-			transform.RotateAround(rotationCenter.position, Vector3.up, speed*Time.deltaTime);
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:2d1a0cf52f470c7c635a8c237cba6297ee6b6e475b76989948244b8a4e7179db
+size 328

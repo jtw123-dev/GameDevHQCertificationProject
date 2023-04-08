@@ -1,35 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
-[RequireComponent(typeof(ParticleSystem))]
-public class CFX_AutoDestructShuriken : MonoBehaviour
-{
-	public bool OnlyDeactivate;
-	
-	void OnEnable()
-	{
-		StartCoroutine("CheckIfAlive");
-	}
-	
-	IEnumerator CheckIfAlive ()
-	{
-		while(true)
-		{
-			yield return new WaitForSeconds(0.5f);
-			if(!GetComponent<ParticleSystem>().IsAlive(true))
-			{
-				if(OnlyDeactivate)
-				{
-					#if UNITY_3_5
-						this.gameObject.SetActiveRecursively(false);
-					#else
-						this.gameObject.SetActive(false);
-					#endif
-				}
-				else
-					GameObject.Destroy(this.gameObject);
-				break;
-			}
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:451e01340b13f06973d099ec5623021a162fafa51e2e8ba0a662b109fb827a49
+size 629

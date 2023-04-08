@@ -1,26 +1,3 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-/**
- *	Demo Scene Script for WAR FX
- *	
- *	(c) 2015, Jean Moreno
-**/
-
-public class WFX_Demo_Wall : MonoBehaviour
-{
-	public WFX_Demo_New demo;
-	
-	void OnMouseDown()
-	{
-		RaycastHit hit = new RaycastHit();
-		if(this.GetComponent<Collider>().Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 9999f))
-		{
-			GameObject particle = demo.spawnParticle();
-			particle.transform.position = hit.point;
-			particle.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:9c5ef050cc026a58ad779ef8319185e4dab140312f3f69e9d12401f9d2af7aeb
+size 626

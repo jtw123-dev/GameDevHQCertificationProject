@@ -1,7 +1,3 @@
-fileFormatVersion: 2
-guid: f75efcef4bb42054abf94f8e5c701adc
-labels:
-- warfx
-- mobile
-- particles
-- bullet impact
+version https://git-lfs.github.com/spec/v1
+oid sha256:a655ffa16994ada430dc633deb91a9859ca88e5b2f136817fbc20456bf16c52d
+size 113

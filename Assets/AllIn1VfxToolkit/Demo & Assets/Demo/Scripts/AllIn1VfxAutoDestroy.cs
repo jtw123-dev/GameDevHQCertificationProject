@@ -1,14 +1,3 @@
-﻿using UnityEngine;
-
-namespace AllIn1VfxToolkit.Demo.Scripts
-{
-    public class AllIn1VfxAutoDestroy : MonoBehaviour
-    {
-        [SerializeField] private float destroyTime = 1f;
-
-        private void Start()
-        {
-            Destroy(gameObject, destroyTime);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e232474999af91040a8fe1629d7e0b5c6647802b695768517211ea011e3070f6
+size 285

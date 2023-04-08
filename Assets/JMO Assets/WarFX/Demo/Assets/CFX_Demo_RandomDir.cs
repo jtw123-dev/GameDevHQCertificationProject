@@ -1,14 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
-public class CFX_Demo_RandomDir : MonoBehaviour
-{
-	public Vector3 min = new Vector3(0,0,0);
-	public Vector3 max = new Vector3(0,360,0);
-	
-	void Awake ()
-	{
-		this.transform.eulerAngles = new Vector3(Random.Range(min.x,max.x),Random.Range(min.y,max.y),Random.Range(min.z,max.z));
-	}
-	
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:fad9392f37dc8195e9cd2b7a4ebe3b16dce0c1909c2d50eec9e48379bdeb109e
+size 332

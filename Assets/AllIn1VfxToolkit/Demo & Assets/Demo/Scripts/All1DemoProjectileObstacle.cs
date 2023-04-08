@@ -1,27 +1,3 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-namespace AllIn1VfxToolkit.Demo.Scripts
-{
-    public class All1DemoProjectileObstacle : MonoBehaviour
-    {
-        [SerializeField] private GameObject[] projectileObstacles;
-        private Dropdown projectileObstacleDropdown;
-        
-        private void Start()
-        {
-            projectileObstacleDropdown = GetComponent<Dropdown>();
-            DropdownValueChanged();
-        }
-
-        public void DropdownValueChanged()
-        {
-            SetProjectileObstacleN(projectileObstacleDropdown.value);
-        }
-
-        private void SetProjectileObstacleN(int nIndex)
-        {
-            for(int i = 0; i < projectileObstacles.Length; i++) projectileObstacles[i].SetActive(i == nIndex);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3270a2be24cc1d0e3c7cbb13fe9b8ff7d16ec80b2476f1324285d21e026f1b66
+size 763

@@ -1,11 +1,3 @@
-﻿using UnityEngine;
-
-namespace AllIn1VfxToolkit.DemoAssets.TexturesDemo.Scripts
-{
-    [CreateAssetMenu(fileName = "All1VfxDemoTextureCollection", menuName = "AllIn1Vfx/DemoTextureCollection")]
-    public class All1VfxDemoTextureCollection : ScriptableObject
-    {
-        public string collectionName;
-        public Texture[] demoTextureCollection;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5bf27975446dde80535dd1af760482508fe5769c75faea46fa2a7ebe3e6ca374
+size 359

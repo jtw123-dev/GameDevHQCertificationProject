@@ -1,24 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class MonoSingleton<T>: MonoBehaviour where T :MonoSingleton<T> 
-{
-    private static T _instance;
-    public static T Instance
-       
-    {
-        get
-        {
-            if (_instance==null)
-            {
-                Debug.Log( typeof(T).ToString() + " is null");
-            }
-            return _instance;
-        }      
-    }
-    private void Awake()
-    {
-        _instance = this as T;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8319655a278349ac52611190cd76b7ca22bcf84463b649a1a8f8bbc7e301a56b
+size 506
