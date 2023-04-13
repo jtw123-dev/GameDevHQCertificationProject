@@ -58,7 +58,7 @@ public class DroneEnemy : Enemy,IDamagable
         }
         else if (other.tag=="End")
         {
-            UIManager.Instance.UpdateLives();
+            UIManager.Instance.UpdateLives(5);
             Hide();
         }
 }

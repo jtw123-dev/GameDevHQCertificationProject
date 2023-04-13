@@ -18,7 +18,6 @@ public class PlaceTowerScript : MonoBehaviour
     [SerializeField] private GameObject _upgradeGatlingTowerUI, _upgradeMissileTurretUI;
     [SerializeField] private GameObject _dualGatlingGun, _dualMissileTurret;
     [SerializeField] private GameObject _towerToHoldForUpgrading;
-    private GameObject _currentAttackedObjectToHold;
     private int _currentCost =200;
     
     // Update is called once per frame
@@ -79,7 +78,6 @@ public class PlaceTowerScript : MonoBehaviour
                     {                
                             _upgradeGatlingTowerUI.SetActive(true);
                             _towerToHoldForUpgrading = hitInfo.collider.gameObject;
-      //                  _currentAttackedObjectToHold = hitInfo.collider.GetComponent<Gatling_Gun>().ReturnCurrentlyAttackedObjectToUpgrade();//first grab reference to gameobject that is currentlyattackedobject than assign it to the dualgatling gun
                     }
 
                     else if (_towerSelection==1)
@@ -109,21 +107,16 @@ public class PlaceTowerScript : MonoBehaviour
     }
     public void UpgradeTower()
     {
-        if (_towerSelection==0 &&UIManager.Instance.UpdateWarFundsAfterTowerBuy(500)==true)
+        if (_towerSelection==0 &&UIManager.Instance.UpdateWarFundsAfterTowerBuy(500)==true &&_towerToHoldForUpgrading!=null)
         {
             Instantiate(_dualGatlingGun, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
             Destroy(_towerToHoldForUpgrading);
         }
-      else if (_towerSelection ==1 && UIManager.Instance.UpdateWarFundsAfterTowerBuy(750)==true)
+      else if (_towerSelection ==1 && UIManager.Instance.UpdateWarFundsAfterTowerBuy(750)==true&&_towerToHoldForUpgrading!=null)
         {
             Instantiate(_dualMissileTurret, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
             Destroy(_towerToHoldForUpgrading);
         }
-    }
-
-    public void CurrentlyAttackedObject()
-    {
-
     }
     public void MoveCurrentObjectToMouse()
     {

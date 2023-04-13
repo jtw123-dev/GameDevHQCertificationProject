@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,12 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private  float _zoomLevel;
     private bool _hasCancelled =true;
     private NewControls _input;
+
+    private void Start()
+    {
+
+        Screen.SetResolution(1920, 1080, true);
+    }
 
     private void OnEnable()
     {

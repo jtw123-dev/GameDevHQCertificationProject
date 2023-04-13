@@ -65,7 +65,7 @@ public class BossEnemy :Enemy,IDamagable
 
         else if (other.tag=="End")
         {
-            UIManager.Instance.UpdateLives();
+            UIManager.Instance.UpdateLives(10);
             Hide();
         }
     }

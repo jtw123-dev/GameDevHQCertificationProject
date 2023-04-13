@@ -9,7 +9,6 @@ public abstract class Tower : MonoBehaviour
     protected bool _isDead;
     [SerializeField] protected List<GameObject> _inColliderGameObjects = new List<GameObject>();
     [SerializeField] protected Transform _rotateTurret;
-    private bool _droneIsDead;
     protected bool _isAttacking;
     protected float _currentHealthOfEnemy;
  
@@ -24,7 +23,6 @@ public abstract class Tower : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin,out hitInfo))
             {
-                Debug.Log(hitInfo.collider.name);
                 if (hitInfo.collider.tag=="Zone")
                 {                
                     hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
@@ -35,18 +33,5 @@ public abstract class Tower : MonoBehaviour
             Destroy(clone, 1.5f);
             Destroy(this.gameObject, 0.7f);
         }            
-    }
-
-    public bool CommunicateDeath()
-    {
-        StartCoroutine(WaitForSoundToRestart());
-        return _droneIsDead;
-        
-
-
-    }
-    private IEnumerator WaitForSoundToRestart()
-    {  
-        yield return new WaitForSeconds(0.5f);
     }
 }

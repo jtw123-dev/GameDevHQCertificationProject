@@ -21,6 +21,12 @@ public class UIManager : MonoSingleton<UIManager>
         {
             Application.Quit();
         }
+
+        if (_lives <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+
     }
 
     public void Restart()
@@ -46,9 +52,9 @@ public class UIManager : MonoSingleton<UIManager>
         Time.timeScale = 2;
     }
 
-    public void UpdateLives()
+    public void UpdateLives(int livesToSubtract)
     {
-        _lives--;
+        _lives-=livesToSubtract;
         _livesText.text = _lives.ToString();
 
         if (_lives>60)
@@ -66,11 +72,6 @@ public class UIManager : MonoSingleton<UIManager>
         {
             _statusText.color = Color.red;
             _statusText.text = " Danger";
-        }
-
-        else if (_lives<=0)
-        {
-            SceneManager.LoadScene(0);
         }
     }
 

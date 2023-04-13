@@ -66,7 +66,7 @@ public abstract class Enemy:MonoBehaviour
     {
         if (other.tag=="End")
         {
-            UIManager.Instance.UpdateLives();
+            UIManager.Instance.UpdateLives(1);
             Hide();
         }
     }  
