@@ -108,16 +108,12 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
 
                 }
 
-               // if (_currentAttackedObject.GetComponent<IDamagable>()!=null)
-
                 if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0)
                 {
                     _inColliderGameObjects.Remove(_currentAttackedObject);
                     _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
                     _muzzleFlash[1].SetActive(false);
                     _audioSource.Stop(); //stop the sound effect from playing   
-
-
                     _bulletCasings[1].Pause(true);
                 }
            

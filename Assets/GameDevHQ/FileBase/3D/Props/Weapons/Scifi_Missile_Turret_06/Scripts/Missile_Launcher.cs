@@ -49,15 +49,6 @@ namespace GameDevHQ.FileBase.Missile_Launcher
         [SerializeField] private float _health;
         [SerializeField] private GameObject _explosion;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
-            {
-                //_launched = true; //set the launch bool to true
-                StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
-            }
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (_launched == true)
@@ -66,13 +57,9 @@ namespace GameDevHQ.FileBase.Missile_Launcher
             }
             _launched = true;
             StartCoroutine(FireRocketsRoutine());
-            _target = other.transform;
-            //other.gameObject.transform.GetComponent<IDamagable>().health -= 50;
-           
-         
+            _target = other.transform;                  
         }
-
-      
+     
         IEnumerator FireRocketsRoutine()
         {
             for (int i = 0; i < _misslePositions.Length; i++) //for loop to iterate through each missle position
@@ -110,7 +97,6 @@ namespace GameDevHQ.FileBase.Missile_Launcher
 
                 if (Physics.Raycast(rayOrigin, out hitInfo))
                 {
-                    Debug.Log(hitInfo.collider.name);
                     if (hitInfo.collider.tag == "Zone")
                     {
                         hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();

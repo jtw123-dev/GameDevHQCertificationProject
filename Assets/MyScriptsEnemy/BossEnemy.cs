@@ -12,33 +12,25 @@ public class BossEnemy :Enemy,IDamagable
     public void Damage(float healthDamage)
     {
         _health -= healthDamage;
-        if (_health <= 0 && _isDead == false)//best to check bool up here rather than down there.
-        {
-            _isDead = true;
-            {
-                _agent.enabled = false;
-                UIManager.Instance.UpdateWarFunds(300);
-                Invoke("Hide", 0.5f);
-            }
-        }
-       
     }
 
     // Start is called before the first frame update
     void Start()
     {
         health = _health;
-        transform.position = _waypoints[0].transform.position;
-        _agent.enabled = true;
-        _agent.speed = _speed;
-        _agent.destination = _waypoints[1].transform.position;
-        _isDead = false;
+        OnStartUp();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Dead();
+        if (_health <= 0)
+        {
+            Dead();
+            var explosionClone = Instantiate(_explosion, transform.position, Quaternion.identity);
+            Destroy(explosionClone, 0.5f);
+        }
+
         if (_isAttacking == true)
         {
             _currentHealthOfTower--;
@@ -55,41 +47,27 @@ public class BossEnemy :Enemy,IDamagable
         if (other.tag == "Tower" || other.tag == "UpgradedTower")
         {
             _isAttacking = true;
-            if (other.GetComponent<IDamagable>() != null)//
+            if (other.GetComponent<IDamagable>() != null)
             {
-               var fireClone = Instantiate(_fireTornado, transform.position, Quaternion.identity);
+                var fireClone = Instantiate(_fireTornado, transform.position, Quaternion.identity);
                 fireClone.transform.position = other.transform.position;
-                _currentHealthOfTower = other.GetComponent<IDamagable>().health;                                      
+                _currentHealthOfTower = other.GetComponent<IDamagable>().health;
             }
         }
 
-        else if (other.tag=="End")
+        else if (other.tag == "End")
         {
-            UIManager.Instance.UpdateLives(10);
+            UIManager.Instance.UpdateLives(_livesToTake);
             Hide();
         }
     }
 
-    public override void Dead()
-    {
-        if (_health <= 0 && _isDead == false)//best to check bool up here rather than down there.
-        {
-            _isDead = true;
-            {
-                _agent.enabled = false;
-                UIManager.Instance.UpdateWarFunds(10000);
-                var explosionClone = Instantiate(_explosion, transform.position, Quaternion.identity);
-                Destroy(explosionClone, 0.5f);
-                Invoke("Hide", 0.5f);
-            }
-        }
-    }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Tower" || other.tag == "UpgradedTower")
         {
             Vector3 directionToFace = other.transform.position - _rotateTurret.transform.position;
-            _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);           
+            _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
         }
     }
 
