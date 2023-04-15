@@ -18,6 +18,8 @@ public class DroneEnemy : Enemy,IDamagable
 
     private void OnEnable()
     {
+        _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
+        _audioSource.loop = true; //making sure our sound effect loops
         health = _health;
         OnStartUp();
     }

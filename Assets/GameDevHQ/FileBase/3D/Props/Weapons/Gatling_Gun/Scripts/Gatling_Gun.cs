@@ -32,19 +32,14 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         private bool _isUpgraded;
         [SerializeField] private float _attackDamage;
         public float health { get; set; }
-
-        // Use this for initialization
-        void Start()
+    
+        private void OnEnable()
         {
             _muzzleFlash.SetActive(false); //setting the initial state of the muzzle flash effect to off
             _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
             _audioSource.playOnAwake = false; //disabling play on awake
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = _fireSound; //assign the clip to play
-        }
-
-        private void OnEnable()
-        {
             health = _health;
         }
         private void Update()
@@ -100,7 +95,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
                     Vector3 directionToFace = _currentAttackedObject.transform.position - _rotateTurret.position;
                     _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
                 }
-                if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0 && _currentAttackedObject != null)//this does not work as else if 
+                if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0 && _currentAttackedObject != null&&this.gameObject!=null)//this does not work as else if 
                 {
                     _inColliderGameObjects.Remove(_currentAttackedObject);
                     _muzzleFlash.SetActive(false);

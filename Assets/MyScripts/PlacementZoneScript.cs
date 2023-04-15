@@ -18,7 +18,6 @@ public class PlacementZoneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             _turretPreviews[_towerSelection].SetActive(false);

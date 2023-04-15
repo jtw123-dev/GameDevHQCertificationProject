@@ -14958,6 +14958,9 @@ MonoBehaviour:
     type: 3}
   _inColliderGameObjects: []
   _rotateTurret: {fileID: 8078849985966706563}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   _gunBarrel:
   - {fileID: 8071513432811119285}
   - {fileID: 8071403335703833625}
@@ -15076,8 +15079,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6745822, y: 2.7556717, z: 7.245914}
-  m_Center: {x: 0.10122526, y: 0.87783587, z: 0.60878634}
+  m_Size: {x: 3.6745822, y: 2.7556717, z: 7.75216}
+  m_Center: {x: 0.10122526, y: 0.87783587, z: 1.0661131}
 --- !u!1 &8076638458628133677
 GameObject:
   m_ObjectHideFlags: 0

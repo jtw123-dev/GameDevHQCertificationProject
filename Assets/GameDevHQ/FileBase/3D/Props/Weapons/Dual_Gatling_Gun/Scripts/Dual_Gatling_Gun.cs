@@ -48,8 +48,6 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = _fireSound; //assign the clip to play
         }
-
-
         private void Update()
         {                 
                 if (_isAttacking == true)
@@ -59,7 +57,8 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
 
                 if (_currentHealthOfEnemy <= 0)
                 {
-                    _isAttacking = false;
+                _inColliderGameObjects.Remove(_currentAttackedObject);
+                _isAttacking = false;
                 _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
                 _muzzleFlash[1].SetActive(false);
                 _audioSource.Stop(); //stop the sound effect from playing                    
@@ -107,16 +106,6 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
                     RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel     
 
                 }
-
-                if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0)
-                {
-                    _inColliderGameObjects.Remove(_currentAttackedObject);
-                    _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
-                    _muzzleFlash[1].SetActive(false);
-                    _audioSource.Stop(); //stop the sound effect from playing   
-                    _bulletCasings[1].Pause(true);
-                }
-           
                 if (_startWeaponNoise == true) //checking if we need to start the gun sound
                 {
                     _audioSource.Play(); //play audio clip attached to audio source

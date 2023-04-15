@@ -42,7 +42,11 @@ public abstract class Enemy:MonoBehaviour
                     _audioSource.Stop();
                 }
                    
-                _anim.applyRootMotion = false;
+                if (_anim!=null)
+                {
+                    _anim.SetBool("Death", true);
+                    _anim.applyRootMotion = false;
+                }            
 
                 if (_leftMuzzleFlash!=null)
                 {
@@ -83,6 +87,7 @@ public abstract class Enemy:MonoBehaviour
         if (_anim != null)
         {
             _anim.applyRootMotion = true;
+            _anim.SetBool("Death", false);
         }
     }
 

@@ -7,22 +7,13 @@ using UnityEngine.Rendering;
 public class BasicMechEnemy : Enemy,IDamagable
 
 {
-    [SerializeField] private Renderer[] _renderer;
-   
+    [SerializeField] private Renderer[] _renderer;  
     public float health { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {     
-        _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
-        _audioSource.playOnAwake = false; //disabling play on awake
-        _audioSource.loop = true; //making sure our sound effect loops
-        _audioSource.clip = _fireSound; //assign the clip to play
-        
-    }
     private void OnEnable()
     {
         _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
+        _audioSource.loop = true; //making sure our sound effect loops
         OnStartUp();
         health = _health;             
         _health = 100;      
@@ -63,7 +54,6 @@ public class BasicMechEnemy : Enemy,IDamagable
             }         
         }
     }
-
     public IEnumerator ResetDissolve()
     {
         while (true)
@@ -86,12 +76,13 @@ public class BasicMechEnemy : Enemy,IDamagable
         if (other.tag == "Tower" || other.tag == "UpgradedTower")
         {                
             _isAttacking = true;
-            if (other.GetComponent<IDamagable>() != null)//
+            if (other.GetComponent<IDamagable>() != null)
             {
+                _leftMuzzleFlash.SetActive(true);
+                _rightMuzzleFlash.SetActive(true);
                 _currentHealthOfTower = other.GetComponent<IDamagable>().health;
                 other.GetComponent<IDamagable>().Damage(_attackDamage); //changing it to nearestEnemy made it work better rather than obj.              
-                _leftMuzzleFlash.SetActive(true);
-                _rightMuzzleFlash.SetActive(true);              
+                            
             }
             if (_startWeaponNoise == true) //checking if we need to start the gun sound
             {
@@ -102,6 +93,4 @@ public class BasicMechEnemy : Enemy,IDamagable
             transform.rotation = Quaternion.LookRotation(directionToFace);
         }
     }
-
-   
 }

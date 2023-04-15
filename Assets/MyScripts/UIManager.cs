@@ -26,7 +26,6 @@ public class UIManager : MonoSingleton<UIManager>
         {
             SceneManager.LoadScene(0);
         }
-
     }
 
     public void Restart()
@@ -43,8 +42,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void Play()
     {
         Time.timeScale = 1;
-        AudioListener.pause = false;
-        
+        AudioListener.pause = false;       
     }
 
     public void FastForward()

@@ -337,6 +337,8 @@ MonoBehaviour:
   _leftMuzzleFlash: {fileID: 0}
   _rightMuzzleFlash: {fileID: 0}
   _attackDamage: 2
+  _hideTimer: 0
+  _livesToTake: 5
   _windTornado: {fileID: 8041569061156449348}
 --- !u!1 &6274359907883767050
 GameObject:

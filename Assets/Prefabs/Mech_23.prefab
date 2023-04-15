@@ -413,8 +413,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.9360623, y: 2.5624895, z: 4.111086}
-  m_Center: {x: -0.012039483, y: 0.36494374, z: 0.36339188}
+  m_Size: {x: 5.519592, y: 3.1911569, z: 9.347718}
+  m_Center: {x: 0.07323897, y: 0.6792774, z: 0.4813013}
 --- !u!114 &4355789329764592236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +441,8 @@ MonoBehaviour:
   _leftMuzzleFlash: {fileID: 0}
   _rightMuzzleFlash: {fileID: 0}
   _attackDamage: 0
+  _hideTimer: 0
+  _livesToTake: 10
   _fireTornado: {fileID: 2294555824928324180, guid: 3e33a52d79be8d64d936e68cfa38b605,
     type: 3}
   _rotateTurret: {fileID: 4355789330752403120}

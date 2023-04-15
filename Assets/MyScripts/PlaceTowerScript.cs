@@ -50,7 +50,6 @@ public class PlaceTowerScript : MonoBehaviour
         }
     }
 
-
     private void OnDisable()
     {
         PlacementZoneScript.onSelect -= TowerSelected;
@@ -58,10 +57,11 @@ public class PlaceTowerScript : MonoBehaviour
     }
     private void HandleTower()
     {
-        PlacementZoneScript.onSelect += TowerSelected;
+    //moved other delegate below    
         PreviewTurretScript._onClick += CanPlaceTower;
-        if ( Mouse.current.leftButton.wasPressedThisFrame)//  Input.GetMouseButtonDown(0))
+        if ( Mouse.current.leftButton.wasPressedThisFrame)
         {
+            PlacementZoneScript.onSelect += TowerSelected;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             PreviewTurretScript._onClick += CanPlaceTower;
             RaycastHit hitInfo;
