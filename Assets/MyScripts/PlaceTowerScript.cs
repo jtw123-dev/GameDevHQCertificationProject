@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using GameDevHQ.FileBase.Gatling_Gun;
 
 public class PlaceTowerScript : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class PlaceTowerScript : MonoBehaviour
     private bool _canPlace;
     [SerializeField] private GameObject _upgradeGatlingTowerUI, _upgradeMissileTurretUI;
     [SerializeField] private GameObject _dualGatlingGun, _dualMissileTurret;
-    [SerializeField] private GameObject _towerToHoldForUpgrading;  
-     private int _currentCost =200;
+    [SerializeField] private GameObject _towerToHoldForUpgrading;
+    private int _currentCost =200;
     
     // Update is called once per frame
     void Update()
@@ -36,23 +37,6 @@ public class PlaceTowerScript : MonoBehaviour
         _canPlace = canPlace;
     }
 
-
-    private void CheckIfTowerExists()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo))
-        {
-            if (hitInfo.collider.tag == "Tower")
-            {
-                Debug.Log("hit tower");
-              
-                
-            }           
-        }
-    }
-
     private void TowerSelected(int tower)
     {
         _towerSelection = tower;
@@ -66,12 +50,18 @@ public class PlaceTowerScript : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        PlacementZoneScript.onSelect -= TowerSelected;
+        PreviewTurretScript._onClick -= CanPlaceTower;
+    }
     private void HandleTower()
     {
-        PlacementZoneScript.onSelect += TowerSelected;
+    //moved other delegate below    
         PreviewTurretScript._onClick += CanPlaceTower;
-        if ( Mouse.current.leftButton.wasPressedThisFrame)//  Input.GetMouseButtonDown(0))
+        if ( Mouse.current.leftButton.wasPressedThisFrame)
         {
+            PlacementZoneScript.onSelect += TowerSelected;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             PreviewTurretScript._onClick += CanPlaceTower;
             RaycastHit hitInfo;
@@ -87,12 +77,11 @@ public class PlaceTowerScript : MonoBehaviour
                     if (_towerSelection==0)
                     {                
                             _upgradeGatlingTowerUI.SetActive(true);
-                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;                     
+                            _towerToHoldForUpgrading = hitInfo.collider.gameObject;
                     }
 
                     else if (_towerSelection==1)
-                    {
-                        UIManager.Instance.UpdateWarFundsAfterTowerBuy(750);
+                    {                     
                             _upgradeMissileTurretUI.SetActive(true);
                             _towerToHoldForUpgrading = hitInfo.collider.gameObject;  
                     }
@@ -118,18 +107,17 @@ public class PlaceTowerScript : MonoBehaviour
     }
     public void UpgradeTower()
     {
-        if (_towerSelection==0 &&UIManager.Instance.UpdateWarFundsAfterTowerBuy(500)==true)
+        if (_towerSelection==0 &&UIManager.Instance.UpdateWarFundsAfterTowerBuy(500)==true &&_towerToHoldForUpgrading!=null)
         {
             Instantiate(_dualGatlingGun, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
             Destroy(_towerToHoldForUpgrading);
         }
-      else if (_towerSelection ==1 && UIManager.Instance.UpdateWarFundsAfterTowerBuy(750)==true)
+      else if (_towerSelection ==1 && UIManager.Instance.UpdateWarFundsAfterTowerBuy(750)==true&&_towerToHoldForUpgrading!=null)
         {
             Instantiate(_dualMissileTurret, _towerToHoldForUpgrading.transform.position, Quaternion.Euler(0, -90, 0));
             Destroy(_towerToHoldForUpgrading);
         }
     }
-
     public void MoveCurrentObjectToMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -145,7 +133,7 @@ public class PlaceTowerScript : MonoBehaviour
     }
     private void ReleaseIfClicked()
     {
-        if (Input.GetMouseButtonDown(0))//changed from 1
+        if ( Mouse.current.leftButton.wasPressedThisFrame) //Input.GetMouseButtonDown(0))//changed from 1
         {
             _currentObject = null;
         }

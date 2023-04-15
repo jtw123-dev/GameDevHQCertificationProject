@@ -19,12 +19,11 @@ public abstract class Enemy:MonoBehaviour
     protected AudioSource _audioSource;
     protected bool _startWeaponNoise;
     protected float _dissolving;
-    protected Tower _towerReference;
-    protected bool _canDamage;
-    protected Gatling_Gun _gatlingGun;
     protected bool _isAttacking;
     protected float _currentHealthOfTower;
     [SerializeField] protected float _attackDamage;
+    [SerializeField] protected float _hideTimer;
+    [SerializeField] protected int _livesToTake;
 
     public void Hide()
     {
@@ -32,46 +31,88 @@ public abstract class Enemy:MonoBehaviour
         this.gameObject.SetActive(false);       
     }
 
-
     public virtual void Dead()
     {
         if (_health <= 0&&_isDead==false)//best to check bool up here rather than down there.
         {
             _isDead = true;               
             {            
-                _audioSource.Stop();             
-                _anim.applyRootMotion = false;
-                _leftMuzzleFlash.SetActive(false);
-                _rightMuzzleFlash.SetActive(false);
-                StartCoroutine(DissolveRoutine());
+                if(_audioSource!=null)
+                {
+                    _audioSource.Stop();
+                }
+                   
+                if (_anim!=null)
+                {
+                    _anim.SetBool("Death", true);
+                    _anim.applyRootMotion = false;
+                }            
+
+                if (_leftMuzzleFlash!=null)
+                {
+                    _leftMuzzleFlash.SetActive(false);
+                }
+             if (_rightMuzzleFlash!=null)
+                {
+                    _rightMuzzleFlash.SetActive(false);
+                }
                 _agent.enabled = false;
-                _anim.SetTrigger("Death");
-                UIManager.Instance.UpdateWarFunds(150);
-                Invoke("Hide", 2.5f);  
+                UIManager.Instance.UpdateWarFunds(_creditsAwardedOnDeath);
+                Invoke("Hide", _hideTimer);  
             }
         }      
     }
-
-    public virtual  IEnumerator DissolveRoutine()
+    public void OnStartUp()
     {
-        return null;
-    }
-
-    public virtual IEnumerator ResetDissolve()
-    {
-        return null;
-    }
-   
-   
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag=="End")
+        transform.position = _waypoints[0].transform.position;
+        _agent.enabled = true;
+        _agent.speed = _speed;
+        _agent.destination = _waypoints[1].transform.position;
+        _isDead = false;
+        if (_leftMuzzleFlash != null)
         {
-            UIManager.Instance.UpdateLives();
-            Hide();
+            _leftMuzzleFlash.SetActive(false);
+        }
+        if (_rightMuzzleFlash != null)
+        {
+            _rightMuzzleFlash.SetActive(false);
+        }
+        if (_audioSource != null)
+        {
+            _audioSource.playOnAwake = false;
+            _audioSource.loop = true;
+            _audioSource.clip = _fireSound;
+        }
+
+        if (_anim != null)
+        {
+            _anim.applyRootMotion = true;
+            _anim.SetBool("Death", false);
         }
     }
 
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "End")
+        {
+            UIManager.Instance.UpdateLives(_livesToTake);
+            Hide();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (_leftMuzzleFlash != null)
+        {
+            _leftMuzzleFlash.SetActive(false);
+        }
+        if (_rightMuzzleFlash != null)
+        {
+            _rightMuzzleFlash.SetActive(false);
+        }
+        if (_audioSource != null)
+        {
+            _audioSource.Stop();
+        }
+        _startWeaponNoise = true;
+    }
 }

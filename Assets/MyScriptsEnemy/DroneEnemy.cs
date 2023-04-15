@@ -1,46 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using GameDevHQ.FileBase.Gatling_Gun;
 
 public class DroneEnemy : Enemy,IDamagable
 {
-    public float health { get ; set; }
+    public float health { get; set; }
     [SerializeField] private GameObject _galaxyExplosion;
-    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _agent.destination = _waypoints[1].transform.position;
-
-        health = _health;
-    }
     private void Update()
     {
-        Dead();
+        if (_health <= 0)
+        {
+            Dead();
+        }
     }
 
     private void OnEnable()
     {
-        health = _health;      
-        transform.position = _waypoints[0].transform.position;
-        _agent.enabled = true;
-        _agent.speed = _speed;
-        _agent.destination = _waypoints[1].transform.position;
-        _isDead = false;   
-    }
-    public override void Dead()
-    {
-        if (_health <= 0 && _isDead == false)//best to check bool up here rather than down there.
-        {
-            _isDead = true;
-            {
-
-                _agent.enabled = false;
-                UIManager.Instance.UpdateWarFunds(150);
-                Invoke("Hide", 0.5f);
-            }
-        }
+        _audioSource = GetComponent<AudioSource>(); //ssign the Audio Source to the reference variable
+        _audioSource.loop = true; //making sure our sound effect loops
+        health = _health;
+        OnStartUp();
     }
 
     public void Damage(float healthDamage)
@@ -53,15 +34,27 @@ public class DroneEnemy : Enemy,IDamagable
         if (other.tag == "Tower" || other.tag == "UpgradedTower")
         {
             if (other.GetComponent<IDamagable>() == null)
-            {         
+            {
                 return;
             }
-            other.GetComponent<IDamagable>().Damage(_attackDamage);                      
+            other.GetComponent<IDamagable>().Damage(_attackDamage);
             Vector3 directionToFace = other.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(directionToFace);
-            Instantiate(_galaxyExplosion,transform.position,Quaternion.identity);
-            _health = 0;
-            Dead();
+            StartCoroutine(WaitToExplode());
         }
-}
+        else if (other.tag == "End")
+        {
+            UIManager.Instance.UpdateLives(_livesToTake);
+            Hide();
+        }
+    }
+    private IEnumerator WaitToExplode()
+    {
+        yield return new WaitForSeconds(2);
+        var galaxyClone = Instantiate(_galaxyExplosion, transform.position, Quaternion.identity);
+        _audioSource.Play();
+        Destroy(galaxyClone, 1);
+        _health = 0;
+        Dead();
+    }
 }

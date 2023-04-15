@@ -10,14 +10,13 @@ using GameDevHQ.FileBase.Missile_Launcher.Missile;
 
 namespace GameDevHQ.FileBase.Missile_Launcher
 {
-    public class Missile_Launcher : MonoBehaviour,IDamagable
+    public class Missile_Launcher : Tower, IDamagable
     {
         public enum MissileType
         {
             Normal,
             Homing
         }
-
 
         [SerializeField]
         private GameObject _missilePrefab; //holds the missle gameobject to clone
@@ -40,24 +39,8 @@ namespace GameDevHQ.FileBase.Missile_Launcher
         private bool _launched; //bool to check if we launched the rockets
         [SerializeField]
         private Transform _target; //Who should the rocket fire at?
-
-        [SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
-        private bool _doneAttacking;
         [SerializeField] private GameObject _currentAttackedObject;
-
         public float health { get; set; }
-        [SerializeField] private float _health;
-        [SerializeField] private GameObject _explosion;
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
-            {
-                //_launched = true; //set the launch bool to true
-                StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
-            }
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (_launched == true)
@@ -67,12 +50,8 @@ namespace GameDevHQ.FileBase.Missile_Launcher
             _launched = true;
             StartCoroutine(FireRocketsRoutine());
             _target = other.transform;
-            //other.gameObject.transform.GetComponent<IDamagable>().health -= 50;
-           
-         
         }
 
-      
         IEnumerator FireRocketsRoutine()
         {
             for (int i = 0; i < _misslePositions.Length; i++) //for loop to iterate through each missle position
@@ -99,29 +78,6 @@ namespace GameDevHQ.FileBase.Missile_Launcher
 
             _launched = false; //set launch bool to false
         }
-
-        public void Damage(float healthDamage)
-        {
-            _health -= healthDamage;
-            if (_health <= 0)
-            {
-                Ray rayOrigin = new Ray(transform.position, Vector3.down);
-                RaycastHit hitInfo;
-
-                if (Physics.Raycast(rayOrigin, out hitInfo))
-                {
-                    Debug.Log(hitInfo.collider.name);
-                    if (hitInfo.collider.tag == "Zone")
-                    {
-                        hitInfo.collider.GetComponent<PlacementZoneScript>().ChangeParticleStatusToTrue();
-                    }
-                }
-
-                var clone = Instantiate(_explosion, transform.position, Quaternion.identity);
-                Destroy(clone, 1.5f);
-                Destroy(this.gameObject, 1.5f);
-            }       
-    }
     }
 }
 

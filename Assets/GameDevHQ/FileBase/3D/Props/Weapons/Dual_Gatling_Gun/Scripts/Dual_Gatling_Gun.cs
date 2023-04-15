@@ -33,15 +33,9 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
 
-
-        //[SerializeField] private List<GameObject> _inColliderGameObjects = new List<GameObject>();
-       // [SerializeField] private Transform _rotateTurret;
         [SerializeField] private GameObject _currentAttackedObject;
-    //    [SerializeField] private float _health;
-     //   [SerializeField] private GameObject _explosion;
         public float health { get; set; }
-      //  private bool _isDead;
-
+    
         // Use this for initialization
         void OnEnable()//changed from start
         {
@@ -54,10 +48,24 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = _fireSound; //assign the clip to play
         }
+        private void Update()
+        {                 
+                if (_isAttacking == true)
+                {
+                    _currentHealthOfEnemy--;
+                }
 
+                if (_currentHealthOfEnemy <= 0)
+                {
+                _inColliderGameObjects.Remove(_currentAttackedObject);
+                _isAttacking = false;
+                _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
+                _muzzleFlash[1].SetActive(false);
+                _audioSource.Stop(); //stop the sound effect from playing                    
+            }
+        }
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("dual is triggered");
             _inColliderGameObjects.Add(other.gameObject);
             _startWeaponNoise = true;
         }
@@ -68,40 +76,36 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
             {
                 foreach (var obj in _inColliderGameObjects)
                 {
-                    float distance = Vector3.Distance(this.gameObject.transform.position, obj.transform.position);
-                    if (distance <= 5)
+                    if(this.gameObject!=null && obj!=null)
                     {
-                        _currentAttackedObject = obj;
-                        obj.GetComponent<IDamagable>().health--;
-                    }
+                        float distance = Vector3.Distance(this.gameObject.transform.position, obj.transform.position);
+                        if (distance <= 5)
+                        {
+                            _currentAttackedObject = obj;
+                        }
+                    }              
                 }
 
-                if (_currentAttackedObject != null)
+                if (_currentAttackedObject == null||_currentAttackedObject.GetComponent<IDamagable>()==null)
                 {
-                    _currentAttackedObject.GetComponent<IDamagable>().Damage(0.4f);//changed from 0.2f
+                    return;
+                }
+                else if (_currentAttackedObject.GetComponent<IDamagable>()!=null)
+                {
+                    _isAttacking = true;
+                    _currentHealthOfEnemy = other.GetComponent<IDamagable>().health;
+                    _currentAttackedObject.GetComponent<IDamagable>().Damage(2f);//changed from 0.2f
                     Vector3 directionToFace = _currentAttackedObject.transform.position - _rotateTurret.position;
                     _rotateTurret.transform.rotation = Quaternion.LookRotation(directionToFace);
-                }
-                if (_currentAttackedObject.GetComponent<IDamagable>().health <= 0)
-                {
-                    _inColliderGameObjects.Remove(_currentAttackedObject);
-                    _muzzleFlash[0].SetActive(false); //setting the initial state of the muzzle flash effect to off
-                    _muzzleFlash[1].SetActive(false);
-                    Debug.Log("stopped");
-                    _audioSource.Stop(); //stop the sound effect from playing
-                }
-                else if (_currentAttackedObject.GetComponent<IDamagable>().health > 0)
-                {
+
                     for (int i = 0; i < _muzzleFlash.Length; i++)
                     {
                         _muzzleFlash[i].SetActive(true); //enable muzzle effect particle effect
                         _bulletCasings[i].Emit(1); //Emit the bullet casing particle effect   
                     }
-                    RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel
-                  //  _muzzleFlash[0].SetActive(true); //setting the initial state of the muzzle flash effect to off
-                  
-                }
+                    RotateBarrel(); //Call the rotation function responsible for rotating our gun barrel     
 
+                }
                 if (_startWeaponNoise == true) //checking if we need to start the gun sound
                 {
                     _audioSource.Play(); //play audio clip attached to audio source
@@ -112,6 +116,7 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
 
         private void OnTriggerExit(Collider other)
         {
+            _isAttacking = false;
             _inColliderGameObjects.Remove(other.gameObject);
             for (int i = 0; i < _muzzleFlash.Length; i++)
             {
@@ -126,9 +131,6 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         {
             _gunBarrel[0].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
             _gunBarrel[1].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
-        }
-
-      
+        }    
     }
-
 }

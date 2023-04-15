@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1372d817140dfc4b90c79f5554d2f50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
+  _health: 100
   _speed: 1.5
   _creditsAwardedOnDeath: 150
   _anim: {fileID: 7198611580333055560}
@@ -786,6 +786,8 @@ MonoBehaviour:
   _leftMuzzleFlash: {fileID: 7198611580885825318}
   _rightMuzzleFlash: {fileID: 7198611580619860839}
   _attackDamage: 1
+  _hideTimer: 2.5
+  _livesToTake: 1
   _renderer:
   - {fileID: 7198611580328747144}
   - {fileID: 7198611580328747146}

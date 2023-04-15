@@ -862,8 +862,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4897707385939822237}
   - component: {fileID: 4791719992837954307}
-  - component: {fileID: 114764318352228470}
-  m_Layer: 0
+  - component: {fileID: 874438768342654472}
+  m_Layer: 7
   m_Name: Missile_Launcher_Turret
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -898,6 +898,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37f75a662e08584192823355ae4ac73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 500
+  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
+    type: 3}
+  _inColliderGameObjects: []
+  _rotateTurret: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 128
   _missilePrefab: {fileID: 1408549652012730, guid: 6f244204e60f45647b263f4edda01147,
     type: 3}
   _missileType: 1
@@ -915,12 +923,8 @@ MonoBehaviour:
   _reloadTime: 0
   _destroyTime: 10
   _target: {fileID: 0}
-  _inColliderGameObjects: []
   _currentAttackedObject: {fileID: 0}
-  _health: 10
-  _explosion: {fileID: 6271241949191652176, guid: 739d19610906a434a8d67ca770434aca,
-    type: 3}
---- !u!65 &114764318352228470
+--- !u!65 &874438768342654472
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,8 +935,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.4755793, y: 1, z: 4.1055527}
-  m_Center: {x: 0.1941477, y: 0, z: -0.09}
+  m_Size: {x: 5.351363, y: 0.8006048, z: 5.2644305}
+  m_Center: {x: -0.28001094, y: -0.34, z: -0.175735}
 --- !u!1 &4895001720612683283
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,7 @@ using System.Linq;
 using UnityEngine.InputSystem;
 
 public class PlacementZoneScript : MonoBehaviour
-{
-  
+{ 
     [SerializeField] private GameObject[] _turretPreviews;
     [SerializeField] private List<GameObject> _availablePlacements;
     public delegate void TowerSelecting(int towerSelected);
@@ -19,28 +18,21 @@ public class PlacementZoneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             _turretPreviews[_towerSelection].SetActive(false);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-           // _turretPreviews[_towerSelection].SetActive(false);          
         }
     }
 
     public bool ChangeParticleStatusToTrue()
     {
         _playParticles = true;
-        Debug.Log("particles are true");
         return _playParticles;
     }
 
     public bool  ChangeParticleStatus()
     {
         _playParticles = false;
-        Debug.Log("particles are false");
         return _playParticles;      
     }
 

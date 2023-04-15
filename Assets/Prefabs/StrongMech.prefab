@@ -458,6 +458,8 @@ MonoBehaviour:
   _leftMuzzleFlash: {fileID: 4775354939620520349}
   _rightMuzzleFlash: {fileID: 4775354939345382876}
   _attackDamage: 2
+  _hideTimer: 2.5
+  _livesToTake: 3
   _renderer:
   - {fileID: 4775354939130553907}
   - {fileID: 4775354939130553905}

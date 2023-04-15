@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,15 +14,25 @@ public class CameraControl : MonoBehaviour
     private bool _hasCancelled =true;
     private NewControls _input;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
+    {
+
+        Screen.SetResolution(1920, 1080, true);
+    }
+
+    private void OnEnable()
     {
         _input = new NewControls();
         _input.Player.Enable();
         _input.Player.CamerMovement.canceled += CamerMovement_canceled;
-        _input.Player.CamerMovement.performed += CamerMovement_performed;     
+        _input.Player.CamerMovement.performed += CamerMovement_performed;
     }
 
+    private void OnDisable()
+    {
+        _input.Player.CamerMovement.canceled -= CamerMovement_canceled;
+        _input.Player.CamerMovement.performed -= CamerMovement_performed;
+    }
     private void CamerMovement_performed(InputAction.CallbackContext obj)
     {
         _hasCancelled = false;    
