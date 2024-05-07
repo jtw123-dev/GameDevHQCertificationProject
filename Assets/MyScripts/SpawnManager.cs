@@ -16,7 +16,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField] private int _currentMechs;
     [SerializeField] private GameObject _gameOverUI;
 
-
     private void OnEnable()
     {
         _mechs = MechGenerator(10);

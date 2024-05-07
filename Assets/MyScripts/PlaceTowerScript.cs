@@ -97,7 +97,7 @@ public class PlaceTowerScript : MonoBehaviour
                     return;
                 }              
             }
-            PlacementZoneScript.onSelect += TowerSelected;
+            PlacementZoneScript.onSelect += TowerSelected;//
             if (UIManager.Instance.UpdateWarFundsAfterTowerBuy(_currentCost)==true)
             {
                 _currentObject = Instantiate(_towersCollection[_towerSelection],transform.position,Quaternion.Euler(0,-90,0));
